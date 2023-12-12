@@ -6,6 +6,8 @@ class Main extends BaseController
 {
     public function index(): string
     {
-        return view('index');
+        return view('home', [
+            'home' => 'nav-item active'
+        ]);
     }
 }
