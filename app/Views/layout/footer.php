@@ -11,12 +11,17 @@
                 <div class="subscription-form">
                     <h3 class="d-flex align-items-center"><span class="me-1"><img src="<?= base_url('assets/images/envelope-outline.svg')?>" alt="Image" class="img-fluid"></span><span>Assine Nossa Newsletter</span></h3>
 
-                    <form action="#" class="row g-3">
+                    <!-- <form action="#" class="row g-3"> -->
+                    <?php
+
+                    helper('form');
+
+                    echo form_open('inscrever-newsletter',['class'=>"row g-3"]); ?>
                         <div class="col-auto">
-                            <input type="text" class="form-control" placeholder="Digite seu nome">
+                            <input type="text" class="form-control" name="name" placeholder="Digite seu nome" required minlength="3">
                         </div>
                         <div class="col-auto">
-                            <input type="email" class="form-control" placeholder="Digite seu e-mail">
+                            <input type="email" name="email" class="form-control" placeholder="Digite seu e-mail" required minlength="6">
                         </div>
                         <div class="col-auto">
                             <button class="btn btn-primary">

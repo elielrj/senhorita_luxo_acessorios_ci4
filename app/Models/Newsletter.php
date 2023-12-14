@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Libraries;
+namespace App\Models;
 
-class Newsletter
+use CodeIgniter\Model;
+
+class Newsletter extends Model
 {
     private $id;
     private $nome;
@@ -10,6 +12,13 @@ class Newsletter
     private $desejaReceber;
     private $dataHoraDaCriacao;
     private $deletadoEm;
+
+    /*
+    * Model do Codeigniter
+    */
+    protected $table = 'newsletter';
+    protected $returnType = 'object';
+    protected $allowedFields = ['nome', 'email', 'deseja_receber'];
 
     public function __construct(
         $id,
@@ -36,5 +45,16 @@ class Newsletter
     public function __set($key, $value)
     {
         $this->$key = $value;
+    }
+
+    public function criarNewsletter()
+    {
+        $ERRO = 'Contato::criarNewsletter()';
+
+        $this->insert([
+            'nome' => $this->nome ?? $ERRO,
+            'email' => $this->email ?? $ERRO,
+            'deseja_receber' => $this->desejaReceber ?? $ERRO,
+        ]);
     }
 }

@@ -89,24 +89,24 @@
                   <div class="col-6">
                     <div class="form-group">
                       <label class="text-black" for="fname">Nome</label>
-                      <input type="text" class="form-control" id="fname" name="fname">
+                      <input type="text" class="form-control" id="fname" name="fname" required minlength="3">
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="form-group">
                       <label class="text-black" for="lname">Sobrenome</label>
-                      <input type="text" class="form-control" id="lname" name="lname">
+                      <input type="text" class="form-control" id="lname" name="lname" required minlength="3">
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="text-black" for="email">E-mail</label>
-                  <input type="email" class="form-control" id="email" name="email">
+                  <input type="email" class="form-control" id="email" name="email" required minlength="6">
                 </div>
 
                 <div class="form-group mb-5">
                   <label class="text-black" for="message">Messagem</label>
-                  <textarea name="message" class="form-control" id="message" cols="30" rows="5"></textarea>
+                  <textarea name="message" class="form-control" id="message" cols="30" rows="5" required minlength="10"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary-hover-outline">Enviar mensagem</button>

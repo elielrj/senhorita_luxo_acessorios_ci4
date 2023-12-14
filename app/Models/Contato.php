@@ -55,11 +55,13 @@ class Contato extends Model
 
     public function criarContato()
     {
+        $ERRO = 'Contato::criarContato()';
+
         $this->insert([
-            'nome' => $this->nome ?? null,
-            'sobrenome' => $this->sobrenome ?? null,
-            'email' => $this->email ?? null,
-            'mensagem' => $this->mensagem ?? null,
+            'nome' => $this->nome ?? $ERRO,
+            'sobrenome' => $this->sobrenome ?? $ERRO,
+            'email' => $this->email ?? $ERRO,
+            'mensagem' => $this->mensagem ?? $ERRO,
         ]);
     }
 

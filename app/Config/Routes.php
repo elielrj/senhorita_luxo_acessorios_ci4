@@ -20,6 +20,7 @@ $routes->get('/cart', 'Cart::index');
 $routes->get('/checkout', 'Checkout::index');
 $routes->get('/thankyou', 'Thankyou::index');
 $routes->post('/enviar-mensagem', 'ContatoController::enviarMensagem');
+$routes->post('/inscrever-newsletter', 'NewsletterController::criarNewsletter');
 $routes->get('/mensagem-enviada', 'ContatoController::mensagemEnviada');
 
 
