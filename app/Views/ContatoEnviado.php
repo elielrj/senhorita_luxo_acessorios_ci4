@@ -1,7 +1,7 @@
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('content'); ?>
-<!-- Start Content Thankyou-->
+<!-- Start Content ContactSet-->
 
 
 		<!-- Start Hero Section -->
@@ -10,7 +10,7 @@
 					<div class="row justify-content-between">
 						<div class="col-lg-5">
 							<div class="intro-excerpt">
-								<h1>Cart</h1>
+								<h1>Contate nos</h1>
 							</div>
 						</div>
 						<div class="col-lg-7">
@@ -35,11 +35,11 @@
           </span>
           <h2 class="display-3 text-black">Obrigado!</h2>
           <p class="lead mb-5">Responderemos em breve.</p>
-          <p><a href="<?= url_to('shop')?>" class="btn btn-sm btn-outline-black">Back to shop</a></p>
+          <p><a href="<?= url_to('shop')?>" class="btn btn-sm btn-outline-black">Retornar a loja</a></p>
         </div>
       </div>
     </div>
   </div>
-        <!-- End Content Thankyou-->
+        <!-- End Content ContactSent-->
         <?= $this->endSection(); ?>
 

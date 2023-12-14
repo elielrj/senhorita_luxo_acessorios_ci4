@@ -19,7 +19,7 @@
                 <li class="<?= $services ?? '' ?>"><a class="nav-link" href="<?= url_to('services') ?>">Services</a>
                 </li>
                 <li class="<?= $blog ?? '' ?>"><a class="nav-link" href="<?= url_to('blog') ?>">Blog</a></li>
-                <li class="<?= $contact ?? '' ?>"><a class="nav-link" href="<?= url_to('contact') ?>">Contact us</a>
+                <li class="<?= $contato ?? '' ?>"><a class="nav-link" href="<?= url_to('Contato') ?>">Contato us</a>
                 </li>
             </ul>
 
