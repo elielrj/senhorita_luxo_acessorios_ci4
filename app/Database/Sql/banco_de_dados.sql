@@ -29,6 +29,7 @@ id int primary key auto_increment not null,
 nome varchar(100) not null,
 email varchar(100) not null,
 deseja_receber boolean not null,
+data_hora_da_criacao datetime not null default current_timestamp,
 deleted_at datetime
 );
 

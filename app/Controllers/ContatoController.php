@@ -1,16 +1,12 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Models\Contato;
 
 class ContatoController extends BaseController
 {
-    public function index(): string
-    {
-        return view('Contato', [
-            'contato' => 'nav-item active'
-        ]);
-    }
+
 
     public function enviarMensagem()
     {
@@ -29,8 +25,8 @@ class ContatoController extends BaseController
         return redirect('mensagem-enviada');
     }
 
-    public function  mensagemEnviada()
+    public function mensagemEnviada()
     {
-        return view('ContatoEnviado');
+        return view('contato/ContatoEnviado');
     }
 }

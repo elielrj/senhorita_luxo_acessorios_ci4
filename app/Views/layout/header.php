@@ -2,7 +2,7 @@
 <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
     <div class="container">
-        <a class="navbar-brand" href="<?=url_to('/')?>">Furni<span>.</span></a>
+        <a class="navbar-brand" href="<?=url_to('/')?>">Senhorita Luxo Acessórios<span>.</span></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
                 aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,13 +19,13 @@
                 <li class="<?= $services ?? '' ?>"><a class="nav-link" href="<?= url_to('services') ?>">Services</a>
                 </li>
                 <li class="<?= $blog ?? '' ?>"><a class="nav-link" href="<?= url_to('blog') ?>">Blog</a></li>
-                <li class="<?= $contato ?? '' ?>"><a class="nav-link" href="<?= url_to('Contato') ?>">Contato us</a>
+                <li class="<?= $contato ?? '' ?>"><a class="nav-link" href="<?= url_to('contato') ?>">Contato us</a>
                 </li>
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                 <li><a class="nav-link" href="#"><img src="<?= base_url('assets/images/user.svg') ?>"></a></li>
-                <li><a class="nav-link" href="<?= url_to('cart') ?>"><img
+                <li><a class="nav-link" href="<?= url_to('carrinho') ?>"><img
                                 src="<?= base_url('assets/images/cart.svg') ?>"></a></li>
             </ul>
         </div>

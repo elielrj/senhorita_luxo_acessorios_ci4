@@ -1,7 +1,7 @@
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('content'); ?>
-<!-- Start Content Cart-->
+<!-- Start Content Carrinho-->
 
 		
 
@@ -98,7 +98,7 @@
                 <div class="col-md-6">
                   <div class="row mb-5">
                     <div class="col-md-6 mb-3 mb-md-0">
-                      <button class="btn btn-black btn-sm btn-block" onclick="window.location='<?= url_to('cart')?>'">Atualizar carrinho</button>
+                      <button class="btn btn-black btn-sm btn-block" onclick="window.location='<?= url_to('carrinho')?>'">Atualizar carrinho</button>
                     </div>
                     <div class="col-md-6">
                       <button class="btn btn-outline-black btn-sm btn-block" onclick="window.location='<?= url_to('shop')?>'">Continue comprando</button>
@@ -144,7 +144,7 @@
         
                       <div class="row">
                         <div class="col-md-12">
-                          <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='<?= url_to('checkout')?>'">Finalizar Pedido</button>
+                          <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='<?= url_to('finalizar-pedido')?>'">Finalizar Pedido</button>
                         </div>
                       </div>
                     </div>
@@ -153,6 +153,6 @@
               </div>
             </div>
           </div>
-<!-- End Content Cart-->
+<!-- End Content Carrinho-->
 		  <?= $this->endSection(); ?>
 

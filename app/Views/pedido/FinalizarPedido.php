@@ -1,7 +1,7 @@
 <?= $this->extend('layout/default') ?>
 
-<!-- Start Content Checkout-->
 <?= $this->section('content'); ?>
+<!-- Start Content FinalizarPedido-->
 
 
 		<!-- Start Hero Section -->
@@ -10,7 +10,7 @@
 					<div class="row justify-content-between">
 						<div class="col-lg-5">
 							<div class="intro-excerpt">
-								<h1>Checkout</h1>
+								<h1>FinalizarPedido</h1>
 							</div>
 						</div>
 						<div class="col-lg-7">
@@ -288,4 +288,5 @@
 		      <!-- </form> -->
 		    </div>
 		  </div>
+<!-- End FinalizarPedido -->
 <?= $this->endSection(); ?>
