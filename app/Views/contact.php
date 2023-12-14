@@ -1,6 +1,6 @@
 <?= $this->extend('layout/default') ?>
 
-<!-- Start Content Shop-->
+<!-- Start Content Contact-->
 <?= $this->section('content'); ?>
 
 		
@@ -79,29 +79,34 @@
                 </div>
               </div>
 
-              <form>
+                <?php
+
+                helper('form');
+                echo form_open('enviar-mensagem');
+
+                ?>
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group">
                       <label class="text-black" for="fname">Nome</label>
-                      <input type="text" class="form-control" id="fname">
+                      <input type="text" class="form-control" id="fname" name="fname">
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="form-group">
                       <label class="text-black" for="lname">Sobrenome</label>
-                      <input type="text" class="form-control" id="lname">
+                      <input type="text" class="form-control" id="lname" name="lname">
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="text-black" for="email">E-mail</label>
-                  <input type="email" class="form-control" id="email">
+                  <input type="email" class="form-control" id="email" name="email">
                 </div>
 
                 <div class="form-group mb-5">
                   <label class="text-black" for="message">Messagem</label>
-                  <textarea name="" class="form-control" id="message" cols="30" rows="5"></textarea>
+                  <textarea name="message" class="form-control" id="message" cols="30" rows="5"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary-hover-outline">Enviar mensagem</button>

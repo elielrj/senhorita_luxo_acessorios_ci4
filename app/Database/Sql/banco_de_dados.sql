@@ -6,6 +6,34 @@ create database if not exists senhorita_luxo_acessorios_web;
 use senhorita_luxo_acessorios_web;
 
 ################################################################
+# Contato
+################################################################
+create table contato
+(
+id int primary key auto_increment not null,
+nome varchar(100) not null,
+sobrenome varchar(100) not null,
+email varchar(100) not null,
+mensagem varchar(250) not null,
+foi_respondido boolean not null,
+data_hora_da_criacao datetime not null default current_timestamp,
+deleted_at datetime
+);
+
+################################################################
+# Newsletter
+################################################################
+create table newsletter
+(
+id int primary key auto_increment not null,
+nome varchar(100) not null,
+email varchar(100) not null,
+deseja_receber boolean not null,
+deleted_at datetime
+);
+
+
+################################################################
 # INICÍO ENDEREÇO 
 ################################################################
 

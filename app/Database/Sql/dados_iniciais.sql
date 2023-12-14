@@ -1,4 +1,9 @@
 
+INSERT INTO `contato`(`id`,`nome`,`sobrenome`,`email`,`mensagem`,`foi_respondido`,`deleted_at`) VALUES
+(1,'Eliel','de Souza Faria','elielrj@gmail.com','abc',false,null);
+
+INSERT INTO `newsletter`(`id`,`nome`,`email`,`deseja_receber`,`deleted_at`) VALUES
+(1,'Eliel','elielrj@gmail.com',true,null);
 
 INSERT INTO `pais` (`id`, `nome`, `name`, `deleted_at`) VALUES
 (1, 'AFEGANISTÃO', 'AFGHANISTAN',null),
