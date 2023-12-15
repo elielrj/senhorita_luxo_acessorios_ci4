@@ -33,6 +33,32 @@ data_hora_da_criacao datetime not null default current_timestamp,
 deleted_at datetime
 );
 
+################################################################
+# Cupom
+################################################################
+create table cupom
+(
+id int primary key auto_increment not null,
+codigo varchar(100) not null,
+usar_mais_de_uma_vez boolean not null,
+data_hora_da_criacao datetime not null default current_timestamp,
+data_hora_da_validade datetime not null,
+deleted_at datetime
+);
+
+################################################################
+# ValePresente
+################################################################
+create table vale_presente
+(
+id int primary key auto_increment not null,
+codigo varchar(100) not null,
+foi_usado boolean not null,
+data_hora_da_criacao datetime not null default current_timestamp,
+data_hora_da_validade datetime not null,
+deleted_at datetime
+);
+
 
 ################################################################
 # INICÍO ENDEREÇO 
@@ -43,12 +69,14 @@ create table pais
 id int primary key auto_increment not null,
 nome varchar(100) not null,
 name varchar(100) not null,
+data_hora_da_criacao datetime not null default current_timestamp,
 deleted_at datetime
 );
 
 create table if not exists regiao(
 id int primary key auto_increment not null,
 nome varchar(250),
+data_hora_da_criacao datetime not null default current_timestamp,
 deleted_at datetime
 );
 
@@ -56,6 +84,7 @@ create table if not exists estado(
 id int primary key auto_increment not null,
 nome varchar(250) not null,
 sigla varchar(2) not null,
+data_hora_da_criacao datetime not null default current_timestamp,
 pais_id int not null,
 regiao_id int not null,
 deleted_at datetime,
@@ -66,6 +95,7 @@ foreign key (pais_id) references pais(id)
 create table if not exists cidade(
 id int primary key auto_increment not null,
 nome varchar(250) not null,
+data_hora_da_criacao datetime not null default current_timestamp,
 estado_id int not null,
 deleted_at datetime,
 foreign key (estado_id) references estado(id)
@@ -82,7 +112,9 @@ cep varchar(250) not null,
 favorito boolean not null,
 deleted_at datetime,
 cidade_id int not null,
-foreign key (cidade_id) references cidade(id)
+usuario_id int not null,
+foreign key (cidade_id) references cidade(id),
+foreign key (usuario_id) references usuario(id)
 );
 ################################################################
 # FIM ENDEREÇO 
@@ -101,6 +133,37 @@ ddd varchar(2) not null,
 nome varchar(250) not null,
 sobrenome varchar(250) not null,
 deleted_at datetime
+);
+
+create table if not exists telefone(
+id int primary key auto_increment not null,
+ddd varchar(2) not null,
+numero varchar(11) not null,
+data_hora_da_criacao datetime not null default current_timestamp,
+usuario_id int not null,
+deleted_at datetime,
+foreign key (usuario_id) references usuario(id)
+);
+
+create table if not exists email(
+id int primary key auto_increment not null,
+valor varchar(250) not null,
+data_hora_da_criacao datetime not null default current_timestamp,
+usuario_id int not null,
+deleted_at datetime,
+foreign key (usuario_id) references usuario(id)
+);
+
+
+create table if not exists login(
+id int primary key auto_increment not null,
+logins int not null,
+senha varchar(250) not null,
+ultimo_acesso datetime not null default current_timestamp,
+data_hora_da_criacao datetime not null default current_timestamp,
+email_id int not null,
+deleted_at datetime,
+foreign key (email_id) references email(id)
 );
 
 create table if not exists arquivo(
@@ -137,14 +200,15 @@ foreign key (produto_id) references produto(id)
 
 create table if not exists item_do_pedido(
 id int primary key auto_increment not null,
-ordem int not null,
-nome varchar(250) not null,
-valor_unitario float not null,
-codigo varchar(250) not null,
+codigo_do_produto varchar(250) not null,
+nome_do_produto varchar(250) not null,
+valor_unitario_do_produto float not null,
+ordem_do_item int not null,
 quantidade int not null,
 desconto_em_percentual float not null,
 desconto_em_valor float not null,
 produto_id int not null,
+data_hora_da_criacao datetime not null default current_timestamp,
 deleted_at datetime,
 foreign key (produto_id) references produto(id)
 );
@@ -152,12 +216,12 @@ foreign key (produto_id) references produto(id)
 create table if not exists pedido(
 id int primary key auto_increment not null,
 numero varchar(250) not null,
-data_hora datetime not null default current_timestamp,
 valor_total float not null,
 desconto_total float not null,
 observacao varchar(250) not null,
 pago boolean not null,
 usuario_id int not null,
+data_hora_da_cricao datetime not null default current_timestamp,
 deleted_at datetime,
 foreign key (usuario_id) references usuario(id)
 );

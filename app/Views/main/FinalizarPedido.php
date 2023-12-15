@@ -10,7 +10,7 @@
 					<div class="row justify-content-between">
 						<div class="col-lg-5">
 							<div class="intro-excerpt">
-								<h1>FinalizarPedido</h1>
+								<h1>Finalizar Pedido</h1>
 							</div>
 						</div>
 						<div class="col-lg-7">
@@ -276,7 +276,7 @@
 		                </div>
 
 		                <div class="form-group">
-		                  <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='<?= url_to('thankyou')?>'">Place Order</button>
+		                  <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='<?= url_to('criar-pedido')?>'">Place Order</button>
 		                </div>
 
 		              </div>

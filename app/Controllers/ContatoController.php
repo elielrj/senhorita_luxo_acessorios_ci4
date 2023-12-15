@@ -6,8 +6,6 @@ use App\Models\Contato;
 
 class ContatoController extends BaseController
 {
-
-
     public function enviarMensagem()
     {
         $ERRO = 'Contato::enviarMensagem()';

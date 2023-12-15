@@ -5,6 +5,12 @@ INSERT INTO `contato`(`id`,`nome`,`sobrenome`,`email`,`mensagem`,`foi_respondido
 INSERT INTO `newsletter`(`id`,`nome`,`email`,`deseja_receber`,`deleted_at`) VALUES
 (1,'Eliel','elielrj@gmail.com',true,null);
 
+INSERT INTO `vale_presente`(`id`,`codigo`,`foi_usado`,`data_hora_da_criacao`,`data_hora_da_validade`,`deleted_at`) VALUES
+(1,'askansdiinvne',false,NOW(),date_add(NOW(), INTERVAL +3 MONTH),null);
+
+INSERT INTO `cupom`(`id`,`codigo`,`usar_mais_de_uma_vez`,`data_hora_da_criacao`,`data_hora_da_validade`,`deleted_at`) VALUES
+(1,'askansdiinvne',false,NOW(),date_add(NOW(), INTERVAL +3 MONTH),null);
+
 INSERT INTO `pais` (`id`, `nome`, `name`, `deleted_at`) VALUES
 (1, 'AFEGANISTÃO', 'AFGHANISTAN',null),
 (2, 'ACROTÍRI E DECELIA', 'AKROTIRI E DEKÉLIA',null),
@@ -5885,8 +5891,8 @@ VALUES('1','1',null);
 INSERT INTO estoque(`id`,`quantidade`,`valor_de_aquisicao`,`produto_id`,`deleted_at`)
 VALUES('1',10,19.90,'1',null);
 
-INSERT INTO item_do_pedido(`id`,`ordem`,`nome`,`valor_unitario`,`codigo`,`quantidade`,`desconto_em_percentual`,`desconto_em_valor`,`produto_id`,`deleted_at`)
-VALUES('1','1','Brinco',29.90,'000001',2,0.10,2.99,'1',null);
+INSERT INTO item_do_pedido(`id`,`codigo_do_produto`,`nome_do_produto`,`valor_unitario_do_produto`,`ordem_do_item`,`quantidade`,`desconto_em_percentual`,`desconto_em_valor`,`produto_id`,`data_hora_da_criacao`,`deleted_at`)
+VALUES(default,'000001','Brinco',29.90,'1',2,0.10,2.99,'1',now(),null);
 
-INSERT INTO pedido(`id`,`numero`,`data_hora`,`valor_total`,`desconto_total`,`observacao`,`pago`,`usuario_id`,`deleted_at`)
-VALUES('1','000001',now(),53.82,5.98,'-',true,'1',null);
+INSERT INTO pedido(`id`,`numero`,`valor_total`,`desconto_total`,`observacao`,`pago`,`usuario_id`,`data_hora_da_cricao`,`deleted_at`)
+VALUES('1','000001',53.82,5.98,'-',true,'1',now(),null);
