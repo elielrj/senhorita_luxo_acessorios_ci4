@@ -21,6 +21,7 @@ class Estoque extends Model
     protected $allowedFields = [
         'quantidade',
         'valor_de_aquisicao',
+        'produto_id',
     ];
 
     public function __contruct(
@@ -48,12 +49,23 @@ class Estoque extends Model
         $this->$key = $value;
     }
 
-    public function criarEstoque()
+    public function criarEstoque(int $produtoId)
     {
         $ERRO = 'Estoque::criarEstoque';
 
         $this->insert([
             'id' => null,
+            'quantidade' => $this->quantidade ?? $ERRO,
+            'valor_de_aquisicao' => $this->valorDeAquisicao ?? $ERRO,
+            'produto_id' => $produtoId ?? 0
+        ]);
+    }
+
+    public function atualizarEstoque()
+    {
+        $ERRO = 'Estoque::atualizarEstoque';
+
+        $this->update($this->id, [
             'quantidade' => $this->quantidade ?? $ERRO,
             'valor_de_aquisicao' => $this->valorDeAquisicao ?? $ERRO,
         ]);
@@ -77,6 +89,11 @@ class Estoque extends Model
             'quantidade' => ($this->quantidade - $valor) ?? $ERRO,
             'valor_de_aquisicao' => $this->valorDeAquisicao ?? $ERRO,
         ]);
+    }
+
+    public function deletarEstoque()
+    {
+        $this->delete($this->id);
     }
 
 }
