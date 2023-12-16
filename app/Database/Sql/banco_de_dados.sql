@@ -166,10 +166,14 @@ deleted_at datetime,
 foreign key (email_id) references email(id)
 );
 
+################################################################
+# START PRODUTO
+################################################################
+
 create table if not exists arquivo(
 id int primary key auto_increment not null,
-criado datetime not null default current_timestamp,
 path varchar(250) not null,
+data_hora_da_criacao datetime not null default current_timestamp,
 deleted_at datetime
 );
 
@@ -197,6 +201,10 @@ produto_id int not null,
 deleted_at datetime,
 foreign key (produto_id) references produto(id)
 );
+
+################################################################
+# END PRODUTO
+################################################################
 
 create table if not exists item_do_pedido(
 id int primary key auto_increment not null,

@@ -8,8 +8,8 @@ use DateTime;
 class Arquivo extends Model
 {
     private $id;
-    private DateTime $dataHoraDaCriacao;
     private $path;
+    private DateTime $dataHoraDaCriacao;
     private $deletadoEm;
 
 
@@ -43,5 +43,20 @@ class Arquivo extends Model
     public function __set($key, $value)
     {
         $this->$key = $value;
+    }
+
+    public function criarArquivo()
+    {
+        $ERRO = 'Arquivo::criarArquivo';
+
+        $this->insert([
+            'id' => null,
+            'path' => $this->path ?? $ERRO,
+        ]);
+    }
+
+    public function deletarArquivo()
+    {
+        $this->delete($this->id);
     }
 }
