@@ -5879,17 +5879,14 @@ VALUES('1','Home','Rua Cel Cabral','458','Apt 704','Centro','88701050', true,nul
 INSERT INTO usuario(`id`,`cadastrado`,`ultimo_acesso`,`logins`,`email`,`senha`,`celular`,`ddd`,`nome`,`sobrenome`,`deleted_at`)
 VALUES('1',now(),now(),'1','elielrj@gmail.com',md5(2),'991577468', '48','Eliel','de Souza Faria',null);
 
-INSERT INTO arquivo(`id`,`path`,`data_hora_da_criacao`,`deleted_at`)
-VALUES(default,'public/assets/img/imagem.png',now(),null);
-
 INSERT INTO produto(`id`,`nome`,`valor`,`codigo`,`deleted_at`)
 VALUES('1','Brinco',29.90,'000001',null);
 
-INSERT INTO arquivo_produto(`arquivo_id`,`produto_id`,`deleted_at`)
-VALUES('1','1',null);
+INSERT INTO arquivo(`id`,`path`,`data_hora_da_criacao`,`deleted_at`,`produto_id`)
+VALUES(default,'public/assets/img/imagem.png',now(),null,1);
 
-INSERT INTO estoque(`id`,`quantidade`,`valor_de_aquisicao`,`produto_id`,`deleted_at`)
-VALUES('1',10,19.90,'1',null);
+INSERT INTO estoque(`id`,`quantidade`,`valor_de_aquisicao`,`data_hora_da_criacao`,`deleted_at`,`produto_id`)
+VALUES(default,10,19.90,now(),null,1);
 
 INSERT INTO item_do_pedido(`id`,`codigo_do_produto`,`nome_do_produto`,`valor_unitario_do_produto`,`ordem_do_item`,`quantidade`,`desconto_em_percentual`,`desconto_em_valor`,`produto_id`,`data_hora_da_criacao`,`deleted_at`)
 VALUES(default,'000001','Brinco',29.90,'1',2,0.10,2.99,'1',now(),null);

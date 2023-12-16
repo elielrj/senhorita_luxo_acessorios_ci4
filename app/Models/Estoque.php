@@ -28,7 +28,7 @@ class Estoque extends Model
         $quantidade,
         $valorDeAquisicao,
         $dataHoraDaCricao = null,
-        $deletadoEm = null,
+        $deletadoEm = null
     )
     {
         $this->id = $id;
@@ -47,4 +47,36 @@ class Estoque extends Model
     {
         $this->$key = $value;
     }
+
+    public function criarEstoque()
+    {
+        $ERRO = 'Estoque::criarEstoque';
+
+        $this->insert([
+            'id' => null,
+            'quantidade' => $this->quantidade ?? $ERRO,
+            'valor_de_aquisicao' => $this->valorDeAquisicao ?? $ERRO,
+        ]);
+    }
+
+    public function reduzirEstoque(int $valor)
+    {
+        $ERRO = 'Estoque::reduzirEstoque';
+
+        $this->update($this->id, [
+            'quantidade' => ($this->quantidade - $valor) ?? $ERRO,
+            'valor_de_aquisicao' => $this->valorDeAquisicao ?? $ERRO,
+        ]);
+    }
+
+    public function aumentarEstoque(int $valor)
+    {
+        $ERRO = 'Estoque::aumentarEstoque';
+
+        $this->update($this->id, [
+            'quantidade' => ($this->quantidade - $valor) ?? $ERRO,
+            'valor_de_aquisicao' => $this->valorDeAquisicao ?? $ERRO,
+        ]);
+    }
+
 }

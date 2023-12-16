@@ -170,13 +170,6 @@ foreign key (email_id) references email(id)
 # START PRODUTO
 ################################################################
 
-create table if not exists arquivo(
-id int primary key auto_increment not null,
-path varchar(250) not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-deleted_at datetime
-);
-
 create table if not exists produto(
 id int primary key auto_increment not null,
 valor float not null,
@@ -185,11 +178,12 @@ codigo varchar(250) not null,
 deleted_at datetime
 );
 
-create table if not exists arquivo_produto(
-arquivo_id int,
-produto_id int,
-deleted_at datetime,
-foreign key (arquivo_id) references arquivo(id),
+create table if not exists arquivo(
+id int primary key auto_increment not null,
+path varchar(250) not null,
+data_hora_da_criacao datetime not null default current_timestamp,
+deleted_at datetime
+produto_id int not null,
 foreign key (produto_id) references produto(id)
 );
 
@@ -197,8 +191,9 @@ create table if not exists estoque(
 id int primary key auto_increment not null,
 quantidade int not null,
 valor_de_aquisicao float not null,
-produto_id int not null,
+data_hora_da_criacao datetime not null default current_timestamp,
 deleted_at datetime,
+produto_id int not null,
 foreign key (produto_id) references produto(id)
 );
 
