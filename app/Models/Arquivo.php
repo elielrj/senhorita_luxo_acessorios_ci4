@@ -20,6 +20,7 @@ class Arquivo extends Model
     protected $returnType = 'object';
     protected $allowedFields = [
         'path',
+        'produto_id'
     ];
 
     public function __contruct(
@@ -45,13 +46,24 @@ class Arquivo extends Model
         $this->$key = $value;
     }
 
-    public function criarArquivo()
+    public function criarArquivo(int $produtoId)
     {
-        $ERRO = 'Arquivo::criarArquivo';
+        $ERRO = 'Arquivo::criarArquivo()';
 
         $this->insert([
             'id' => null,
             'path' => $this->path ?? $ERRO,
+            'produto_id' => $produtoId ?? 0
+        ]);
+    }
+
+    public function atualizarArquivo()
+    {
+        $ERRO = 'Arquivo::atualizarArquivo()';
+
+        $this->update($this->id, [
+            'path' => $this->path ?? $ERRO,
+            'produto_id' => $produtoId ?? 0
         ]);
     }
 
