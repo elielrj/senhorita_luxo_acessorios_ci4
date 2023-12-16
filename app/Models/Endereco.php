@@ -31,19 +31,20 @@ class Endereco extends Model
         'bairro',
         'cep',
         'favorito',
-        'cidade_id'
+        'cidade_id',
+        'usuario_id',
     ];
 
     public function __construct(
-        $id,
-        $nome,
-        $logradouro,
-        $numero,
-        $complemento,
-        $bairro,
-        $cep,
-        $favorito,
-        $cidade,
+        $id = null,
+        $nome = null,
+        $logradouro = null,
+        $numero = null,
+        $complemento = null,
+        $bairro = null,
+        $cep = null,
+        $favorito = null,
+        $cidade = null,
         $dataHoraDaCriacao = null,
         $deletadoEm = null
     )
@@ -56,7 +57,7 @@ class Endereco extends Model
         $this->bairro = $bairro;
         $this->cep = $cep;
         $this->favorito = $favorito;
-        $this->cidade = $cidade;
+        $this->cidade = $cidade ?? new Cidade();
         $this->dataHoraDaCriacao = $dataHoraDaCriacao;
         $this->deletadoEm = $deletadoEm;
     }
@@ -69,5 +70,44 @@ class Endereco extends Model
     public function __set($key, $value)
     {
         $this->$key = $value;
+    }
+
+    public function criarEndereco(int $usuarioId)
+    {
+        $ERRO = 'Endereco::criarEndereco()';
+
+        $this->insert([
+            'id' => null,
+            'nome' => $this->nome ?? $ERRO,
+            'logradouro' => $this->logradouro ?? $ERRO,
+            'numero' => $this->numero ?? $ERRO,
+            'complemento' => $this->complemento ?? $ERRO,
+            'bairro' => $this->bairro ?? $ERRO,
+            'cep' => $this->cep ?? $ERRO,
+            'favorito' => $this->favorito ?? $ERRO,
+            'cidade_id' => $this->cidade->id ?? 0,
+            'usuario_id' => $usuarioId ?? 0,
+        ]);
+    }
+
+    public function buscarEdereco(int $usuarioId)
+    {
+        $data = $this->where(['usuario_id' => $usuarioId])->findAll();
+
+        foreach ($data as $value) {
+
+            $endereco = new Endereco();
+
+            $endereco->id = $value->id;
+            $endereco->nome = $value->nome;
+            $endereco->logradouro = $value->logradouro;
+            $endereco->numero = $value->numero;
+            $endereco->complemento = $value->complemento;
+            $endereco->bairro = $value->bairro;
+            $endereco->cep = $value->cep;
+            $endereco->favorito = $value->favorito;
+            $endereco->dataHoraDaCriacao = $value->data_hora_da_criacao;
+            $this->cidade->buscarCidade($value->cidade_id);
+        }
     }
 }

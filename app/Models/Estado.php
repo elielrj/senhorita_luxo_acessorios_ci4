@@ -17,13 +17,13 @@ class Estado extends Model
    */
     protected $table = 'estado';
     protected $returnType = 'object';
-    protected $allowedFields = ['nome', 'sigla'];
+    protected $allowedFields = ['nome', 'sigla', 'regiao_id'];
 
     public function __construct(
-        $id,
-        $nome,
-        $sigla,
-        $regiao,
+        $id = null,
+        $nome = null,
+        $sigla = null,
+        $regiao = null,
         $dataHoraDaCriacao = null,
         $deletadoEm = null
     )
@@ -31,7 +31,7 @@ class Estado extends Model
         $this->id = $id;
         $this->nome = $nome;
         $this->sigla = $sigla;
-        $this->regiao = $regiao;
+        $this->regiao = $regiao ?? new Regiao();
         $this->dataHoraDaCriacao = $dataHoraDaCriacao;
         $this->deletadoEm = $deletadoEm;
     }
@@ -44,5 +44,28 @@ class Estado extends Model
     public function __set($key, $value)
     {
         $this->$key = $value;
+    }
+
+    public function criarEstado()
+    {
+        $ERRO = 'Estado::criarEstado()';
+
+        $this->insert([
+            'id' => null,
+            'nome' => $this->nome ?? $ERRO,
+            'sigla' => $this->sigla ?? $ERRO,
+            'regiao_id' => $this->regiao->id ?? 0,
+        ]);
+    }
+
+    public function buscarEstado(int $estadoId)
+    {
+        $data = $this->$this->find(['id' => $estadoId]);
+
+        $this->id = $data->id;
+        $this->nome = $data->nome;
+        $this->sigla = $data->sigla;
+        $this->dataHoraDaCriacao = $data->data_hora_da_criacao;
+        $this->regiao->buscarRegiao($data->regiao_id);
     }
 }

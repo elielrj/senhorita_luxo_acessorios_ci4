@@ -19,8 +19,8 @@ class Regiao extends Model
     protected $allowedFields = ['nome'];
 
     public function __construct(
-        $id,
-        $nome,
+        $id=null,
+        $nome= null,
         $dataHoraDaCriacao = null,
         $deletadoEm = null
     )
@@ -43,15 +43,17 @@ class Regiao extends Model
 
     public function criarRegiao()
     {
+        $ERRO = 'Regiao::criarRegiao';
+
         $this->insert([
-            'id'=>null,
-            'nome'=> $this->nome,
+            'id' => null,
+            'nome' => $this->nome ?? $ERRO,
         ]);
     }
 
     public function buscarRegiao(int $regiaoId)
     {
-        $data = $this->find(['id'=>$regiaoId]);
+        $data = $this->find(['id' => $regiaoId]);
 
         $this->id = $data['id'];
         $this->nome = $data['nome'];
