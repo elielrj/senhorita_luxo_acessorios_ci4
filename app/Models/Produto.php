@@ -34,7 +34,7 @@ class Produto extends Model
         $id,
         $codigo,
         $nome,
-        $valorUnitario,
+        $valorUnitarioDoProduto,
         $estoque = null,
         $arquivos = [],
         $dataHoraDaCriacao = null,
@@ -44,7 +44,7 @@ class Produto extends Model
         $this->id = $id;
         $this->codigo = $codigo;
         $this->nome = $nome;
-        $this->valorUnitario = $valorUnitario;
+        $this->valorUnitario = $valorUnitarioDoProduto;
         $this->estoque = $estoque;
         $this->arquivos = $arquivos;
         $this->dataHoraDaCriacao = $dataHoraDaCriacao;

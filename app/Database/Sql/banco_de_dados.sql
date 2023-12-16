@@ -202,6 +202,9 @@ foreign key (produto_id) references produto(id)
 # END PRODUTO
 ################################################################
 
+################################################################
+# START PEDIDO
+################################################################
 create table if not exists item_do_pedido(
 id int primary key auto_increment not null,
 codigo_do_produto varchar(250) not null,
@@ -211,9 +214,9 @@ ordem_do_item int not null,
 quantidade int not null,
 desconto_em_percentual float not null,
 desconto_em_valor float not null,
-produto_id int not null,
 data_hora_da_criacao datetime not null default current_timestamp,
 deleted_at datetime,
+produto_id int not null,
 foreign key (produto_id) references produto(id)
 );
 

@@ -5889,8 +5889,8 @@ VALUES(default,'public/assets/img/imagem.png',now(),null,1);
 INSERT INTO estoque(`id`,`quantidade`,`valor_de_aquisicao`,`data_hora_da_criacao`,`deleted_at`,`produto_id`)
 VALUES(default,10,19.90,now(),null,1);
 
-INSERT INTO item_do_pedido(`id`,`codigo_do_produto`,`nome_do_produto`,`valor_unitario_do_produto`,`ordem_do_item`,`quantidade`,`desconto_em_percentual`,`desconto_em_valor`,`produto_id`,`data_hora_da_criacao`,`deleted_at`)
-VALUES(default,'000001','Brinco',29.90,'1',2,0.10,2.99,'1',now(),null);
+INSERT INTO item_do_pedido(`id`,`codigo_do_produto`,`nome_do_produto`,`valor_unitario_do_produto`,`ordem_do_item`,`quantidade`,`desconto_em_percentual`,`desconto_em_valor`,`data_hora_da_criacao`,`deleted_at`,`produto_id`)
+VALUES(default,'000001','Brinco',29.90,1,2,0.10,2.99,now(),null,1);
 
 INSERT INTO pedido(`id`,`numero`,`valor_total`,`desconto_total`,`observacao`,`pago`,`usuario_id`,`data_hora_da_cricao`,`deleted_at`)
 VALUES('1','000001',53.82,5.98,'-',true,'1',now(),null);

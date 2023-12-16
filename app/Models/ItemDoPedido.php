@@ -10,7 +10,7 @@ class ItemDoPedido extends Model
     private $id;
     private $codigoDoProduto;
     private $nomeDoProduto;
-    private $valorUnitario;
+    private $valorUnitarioDoProduto;
     private $ordemDoItem;
     private $quantidade;
     private $descontoEmPercentual;
@@ -25,24 +25,26 @@ class ItemDoPedido extends Model
     protected $table = 'item_do_pedido';
     protected $returnType = 'object';
     protected $allowedFields = [
-        'ordem',
-        'valor_unitario',
-        'codigo',
+        'codigo_do_produto',
+        'nome_do_produto',
+        'valor_unitario_do_produto',
+        'ordem_do_item',
         'quantidade',
         'desconto_em_percentual',
-        'desconto_em_valor'
+        'desconto_em_valor',
+        'produto_id'
     ];
 
     public function __construct(
         $id,
         $codigoDoProduto,
         $nomeDoProduto,
-        $valorUnitario,
+        $valorUnitarioDoProduto,
         $ordemDoItem,
-        $quantidade,
-        $descontoEmPercentual,
-        $descontoEmValor,
         $produto,
+        $quantidade = 1,
+        $descontoEmPercentual = 0,
+        $descontoEmValor = 0,
         $dataHoraDaCriacao = null,
         $deletadoEm = null
     )
@@ -50,12 +52,12 @@ class ItemDoPedido extends Model
         $this->id = $id;
         $this->codigoDoProduto = $codigoDoProduto;
         $this->nomeDoProduto = $nomeDoProduto;
-        $this->valorUnitario = $valorUnitario;
+        $this->valorUnitarioDoProduto = $valorUnitarioDoProduto;
         $this->ordemDoItem = $ordemDoItem;
+        $this->produto = $produto;
         $this->quantidade = $quantidade;
         $this->descontoEmPercentual = $descontoEmPercentual;
         $this->descontoEmValor = $descontoEmValor;
-        $this->produto = $produto;
         $this->dataHoraDaCriacao = $dataHoraDaCriacao;
         $this->deletadoEm = $deletadoEm;
     }
@@ -68,5 +70,44 @@ class ItemDoPedido extends Model
     public function __set($key, $value)
     {
         $this->$key = $value;
+    }
+
+    public function criarItemDoPedido()
+    {
+        $ERRO = 'ItemDoPedido::criarItemDoPedido()';
+
+        $this->insert([
+            'id' => null,
+            'codigo_do_produto' => $this->codigoDoProduto ?? $ERRO,
+            'nome_do_produto' => $this->nomeDoProduto ?? $ERRO,
+            'valor_unitario_do_produto' => $this->valorUnitarioDoProduto ?? 0,
+            'ordem_do_item' => $this->ordemDoItem ?? 0,
+            'quantidade' => $this->quantidade ?? 0,
+            'desconto_em_percentual' => $this->descontoEmPercentual ?? 0,
+            'desconto_em_valor' => $this->descontoEmValor ?? 0,
+            'produto_id' => $this->produto->id ?? 0,
+        ]);
+    }
+
+    public function atualizarItemDoPedido()
+    {
+        $ERRO = 'ItemDoPedido::atualizarItemDoPedido()';
+
+        $this->insert([
+            'id' => null,
+            'codigo_do_produto' => $this->codigoDoProduto ?? $ERRO,
+            'nome_do_produto' => $this->nomeDoProduto ?? $ERRO,
+            'valor_unitario_do_produto' => $this->valorUnitarioDoProduto ?? 0,
+            'ordem_do_item' => $this->ordemDoItem ?? 0,
+            'quantidade' => $this->quantidade ?? 0,
+            'desconto_em_percentual' => $this->descontoEmPercentual ?? 0,
+            'desconto_em_valor' => $this->descontoEmValor ?? 0,
+            'produto_id' => $this->produto->id ?? 0,
+        ]);
+    }
+
+    public function deletarItemDoPedido()
+    {
+        $this->delete($this->id);
     }
 }
