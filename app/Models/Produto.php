@@ -18,7 +18,6 @@ class Produto extends Model
     private $dataHoraDaCriacao;
     private $deletadoEm;
 
-
     /*
     * Model do Codeigniter
     */
@@ -28,7 +27,6 @@ class Produto extends Model
         'codigo',
         'nome',
         'valor_unitario',
-        'arquivos',
         'estoque',
     ];
 
@@ -37,7 +35,7 @@ class Produto extends Model
         $codigo,
         $nome,
         $valorUnitario,
-        $estoque,
+        $estoque = null,
         $arquivos = [],
         $dataHoraDaCriacao = null,
         $deletadoEm = null
@@ -62,4 +60,57 @@ class Produto extends Model
     {
         $this->$key = $value;
     }
+
+    public function criarProduto()
+    {
+        $ERRO = 'Produto::criarProduto()';
+
+        $produtoId = $this->insert([
+            'id' => null,
+            'codigo' => $this->codigo ?? $ERRO,
+            'nome' => $this->nome ?? $ERRO,
+            'valor_unitario' => $this->valorUnitario ?? 0,
+        ]);
+
+        $this->estoque->criarEstoque($produtoId);
+
+        foreach ($this->arquivos as $arquivo) {
+            if ($arquivo == Arquivo::class) {
+                $arquivo->criarArquivo($produtoId);
+            }
+        }
+    }
+
+    public function atualizarProduto()
+    {
+        $ERRO = 'Produto::atualizarProduto()';
+
+        $this->update($this->id, [
+            'codigo' => $this->codigo ?? $ERRO,
+            'nome' => $this->nome ?? $ERRO,
+            'valor_unitario' => $this->valorUnitario ?? 0,
+        ]);
+
+        $this->estoque->atualizarEstoque();
+
+        foreach ($this->arquivos as $arquivo) {
+            if ($arquivo == Arquivo::class) {
+                $arquivo->atualizarArquivo();
+            }
+        }
+    }
+
+    public function deletarProduto()
+    {
+        $this->delete($this->id);
+
+        $this->estoque->deletarEstoque();
+
+        foreach ($this->arquivos as $arquivo) {
+            if ($arquivo == Arquivo::class) {
+                $arquivo->deletarArquivo();
+            }
+        }
+    }
+
 }
