@@ -99,18 +99,4 @@ class Produto extends Model
             }
         }
     }
-
-    public function deletarProduto()
-    {
-        $this->delete($this->id);
-
-        $this->estoque->deletarEstoque();
-
-        foreach ($this->arquivos as $arquivo) {
-            if ($arquivo == Arquivo::class) {
-                $arquivo->deletarArquivo();
-            }
-        }
-    }
-
 }

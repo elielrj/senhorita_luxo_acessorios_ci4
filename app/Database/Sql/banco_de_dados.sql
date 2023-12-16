@@ -205,6 +205,22 @@ foreign key (produto_id) references produto(id)
 ################################################################
 # START PEDIDO
 ################################################################
+
+create table if not exists pedido(
+id int primary key auto_increment not null,
+numero varchar(250) not null,
+valor_total float not null,
+desconto_total float not null,
+observacao varchar(250) not null,
+pago boolean not null,
+data_hora_da_cricao datetime not null default current_timestamp,
+deleted_at datetime,
+usuario_id int not null,
+cupom_id int not null,
+foreign key (usuario_id) references usuario(id),
+foreign key (cupom_id) references cupom(id)
+);
+
 create table if not exists item_do_pedido(
 id int primary key auto_increment not null,
 codigo_do_produto varchar(250) not null,
@@ -218,21 +234,7 @@ data_hora_da_criacao datetime not null default current_timestamp,
 deleted_at datetime,
 produto_id int not null,
 foreign key (produto_id) references produto(id)
-);
-
-create table if not exists pedido(
-id int primary key auto_increment not null,
-numero varchar(250) not null,
-valor_total float not null,
-desconto_total float not null,
-observacao varchar(250) not null,
-pago boolean not null,
-usuario_id int not null,
-data_hora_da_cricao datetime not null default current_timestamp,
-deleted_at datetime,
-foreign key (usuario_id) references usuario(id)
-);
-
+    );
 /*
 create table if not exists categoria(
 id int primary key auto_increment not null,
