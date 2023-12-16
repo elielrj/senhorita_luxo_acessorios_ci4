@@ -23,11 +23,11 @@ class Contato extends Model
     protected $allowedFields = ['nome', 'sobrenome', 'email', 'mensagem', 'foi_respondido'];
 
     public function __construct(
-        $id,
-        $nome,
-        $sobrenome,
-        $email,
-        $mensagem,
+        $id=null,
+        $nome=null,
+        $sobrenome=null,
+        $email=null,
+        $mensagem=null,
         $foiRespondido = false,
         $dataHoraDaCriacao = null,
         $deletadoEm = null
@@ -58,6 +58,7 @@ class Contato extends Model
         $ERRO = 'Contato::criarContato()';
 
         $this->insert([
+            'id'=> null,
             'nome' => $this->nome ?? $ERRO,
             'sobrenome' => $this->sobrenome ?? $ERRO,
             'email' => $this->email ?? $ERRO,
@@ -65,11 +66,11 @@ class Contato extends Model
         ]);
     }
 
-    public function buscarContatoPorId($id)
+    public function buscarContatoPorId($contatoId)
     {
         $ERRO = 'Contato::buscarContatoPorId()';
 
-        $contato = $this->find($id);
+        $contato = $this->find($contatoId);
 
         return new Contato(
             $contato->id ?? $ERRO,
@@ -87,7 +88,7 @@ class Contato extends Model
     {
         $ERRO = 'Contato::buscarContatosNaoRespondido()';
 
-        $contatos = $this->find(['foi_respondido' => false]);
+        $contatos = $this->where(['foi_respondido' => false])->findAll();
 
         $listaDeContatos = [];
 
@@ -110,7 +111,7 @@ class Contato extends Model
     {
         $ERRO = 'Contato::buscarContatosRespondido()';
 
-        $contatos = $this->find(['foi_respondido' => true]);
+        $contatos = $this->where(['foi_respondido' => true])->findAll();
 
         $listaDeContatos = [];
 
@@ -133,7 +134,7 @@ class Contato extends Model
     {
         $ERRO = 'Contato::buscarTodosOsContatos()';
 
-        $contatos = $this->find();
+        $contatos = $this->findAll();
 
         $listaDeContatos = [];
 

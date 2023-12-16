@@ -75,7 +75,7 @@ deleted_at datetime
 
 create table if not exists regiao(
 id int primary key auto_increment not null,
-nome varchar(250),
+nome varchar(250) not null,
 data_hora_da_criacao datetime not null default current_timestamp,
 deleted_at datetime
 );
