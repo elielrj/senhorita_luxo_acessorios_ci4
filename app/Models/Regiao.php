@@ -9,6 +9,7 @@ class Regiao extends Model
     private $id;
     private $nome;
     private $dataHoraDaCriacao;
+    private $deletadoEm;
 
     /*
     * Model do Codeigniter
@@ -38,5 +39,22 @@ class Regiao extends Model
     public function __set($key, $value)
     {
         $this->$key = $value;
+    }
+
+    public function criarRegiao()
+    {
+        $this->insert([
+            'id'=>null,
+            'nome'=> $this->nome,
+        ]);
+    }
+
+    public function buscarRegiao(int $regiaoId)
+    {
+        $data = $this->find(['id'=>$regiaoId]);
+
+        $this->id = $data['id'];
+        $this->nome = $data['nome'];
+        $this->dataHoraDaCriacao = $data['data_hora_da_criacao'];
     }
 }
