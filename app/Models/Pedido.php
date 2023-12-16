@@ -78,6 +78,8 @@ class Pedido extends Model
     {
         $ERRO = 'Pedido::criarPedido()';
 
+        $this->calcularPedido();
+
         $pedidoId = $this->insert([
             'id' => null,
             'numero' => $this->numero ?? $ERRO,
@@ -89,10 +91,33 @@ class Pedido extends Model
             'usuario_id' => $usuarioId ?? 0,
         ]);
 
-        foreach($this->itensDoPedido as $itemDoPedido){
-            if($itemDoPedido == ItemDoPedido::class){
+        foreach ($this->itensDoPedido as $itemDoPedido) {
+            if ($itemDoPedido == ItemDoPedido::class) {
                 $itemDoPedido->criarItemDoPedido($pedidoId);
             }
+        }
+    }
+
+    public function calcularPedido()
+    {
+        $total = 0;
+
+        foreach ($this->itensDoPedido as $item) {
+            if ($item == ItemDoPedido::class) {
+                $total += $item->valorUnitarioDoProduto * $item->quantidade;
+            }
+        }
+        $this->valorTotal = $total;
+
+        if (!empty($this->valesPresentes)) {
+
+            $totalDeValePresente = 0;
+            foreach ($this->valesPresentes as $valePresente) {
+                if ($valePresente == ValePresente::class) {
+                    $totalDeValePresente += $valePresente->valor;
+                }
+            }
+            $this->descontoTotal = $totalDeValePresente;
         }
     }
 }
