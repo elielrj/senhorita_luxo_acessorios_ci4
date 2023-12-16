@@ -66,9 +66,4 @@ class Arquivo extends Model
             'produto_id' => $produtoId ?? 0
         ]);
     }
-
-    public function deletarArquivo()
-    {
-        $this->delete($this->id);
-    }
 }

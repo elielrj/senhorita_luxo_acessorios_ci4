@@ -32,7 +32,8 @@ class ItemDoPedido extends Model
         'quantidade',
         'desconto_em_percentual',
         'desconto_em_valor',
-        'produto_id'
+        'pedido_id',
+        'produto_id',
     ];
 
     public function __construct(
@@ -72,42 +73,25 @@ class ItemDoPedido extends Model
         $this->$key = $value;
     }
 
-    public function criarItemDoPedido()
+    public function criarItemDoPedido(int $pedidoId)
     {
         $ERRO = 'ItemDoPedido::criarItemDoPedido()';
 
-        $this->insert([
-            'id' => null,
-            'codigo_do_produto' => $this->codigoDoProduto ?? $ERRO,
-            'nome_do_produto' => $this->nomeDoProduto ?? $ERRO,
-            'valor_unitario_do_produto' => $this->valorUnitarioDoProduto ?? 0,
-            'ordem_do_item' => $this->ordemDoItem ?? 0,
-            'quantidade' => $this->quantidade ?? 0,
-            'desconto_em_percentual' => $this->descontoEmPercentual ?? 0,
-            'desconto_em_valor' => $this->descontoEmValor ?? 0,
-            'produto_id' => $this->produto->id ?? 0,
-        ]);
-    }
+        $resultado = $this->produto->estoque->reduzirEstoque($this->quantidade);
 
-    public function atualizarItemDoPedido()
-    {
-        $ERRO = 'ItemDoPedido::atualizarItemDoPedido()';
-
-        $this->insert([
-            'id' => null,
-            'codigo_do_produto' => $this->codigoDoProduto ?? $ERRO,
-            'nome_do_produto' => $this->nomeDoProduto ?? $ERRO,
-            'valor_unitario_do_produto' => $this->valorUnitarioDoProduto ?? 0,
-            'ordem_do_item' => $this->ordemDoItem ?? 0,
-            'quantidade' => $this->quantidade ?? 0,
-            'desconto_em_percentual' => $this->descontoEmPercentual ?? 0,
-            'desconto_em_valor' => $this->descontoEmValor ?? 0,
-            'produto_id' => $this->produto->id ?? 0,
-        ]);
-    }
-
-    public function deletarItemDoPedido()
-    {
-        $this->delete($this->id);
+        if ($resultado) {
+            $this->insert([
+                'id' => null,
+                'codigo_do_produto' => $this->codigoDoProduto ?? $ERRO,
+                'nome_do_produto' => $this->nomeDoProduto ?? $ERRO,
+                'valor_unitario_do_produto' => $this->valorUnitarioDoProduto ?? 0,
+                'ordem_do_item' => $this->ordemDoItem ?? 0,
+                'quantidade' => $this->quantidade ?? 0,
+                'desconto_em_percentual' => $this->descontoEmPercentual ?? 0,
+                'desconto_em_valor' => $this->descontoEmValor ?? 0,
+                'produto_id' => $this->produto->id ?? 0,
+                'pedido_id' => $pedidoId ?? 0,
+            ]);
+        }//todo: tratar o erro eventual, caso do estoque for menor a qtd desejada.
     }
 }

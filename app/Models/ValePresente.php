@@ -12,13 +12,26 @@ class ValePresente extends Model
     private $foiUsado;
     private $dataHoraDaCriacao;
     private $dataHoraDaValidade;
-    private Usuario $usuario;
+    private $valor;
     private $deletadoEm;
+
+    /*
+     * Model do Codeigniter
+     */
+    protected $table = 'vale_presente';
+    protected $returnType = 'object';
+    protected $allowedFields = [
+        'codigo',
+        'foi_usado',
+        'data_hora_da_validade',
+        'valor',
+        'usuario_id',
+        'pago'];
 
     public function __construct(
         $id,
         $codigo,
-        $usuario,
+        $valor,
         $foiUsado = false,
         $daraHoraDaCriacao = null,
         $dataHoraDaValidade = null,
@@ -27,7 +40,7 @@ class ValePresente extends Model
     {
         $this->id = $id;
         $this->codigo = $codigo;
-        $this->usuario = $usuario;
+        $this->valor = $valor;
         $this->foiUsado = $foiUsado;
         $this->dataHoraDaCriacao = $daraHoraDaCriacao;
         $this->dataHoraDaValidade = $dataHoraDaValidade;
@@ -42,5 +55,22 @@ class ValePresente extends Model
     public function __set($key, $value)
     {
         $this->$key = $value;
+    }
+
+    public function criarValePresente(int $usuarioId)
+    {
+        $this->insert([
+            'id' => null,
+            'codigo' => md5(),
+            'foiUsado' => false,
+            'usuario_id' => $usuarioId
+        ]);
+    }
+
+    public function validarValePresente()
+    {
+        $data = $this->where(['codigo' => $this->codigo])->find();
+
+        return $data->foi_usado;
     }
 }

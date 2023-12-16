@@ -25,9 +25,9 @@ class Estoque extends Model
     ];
 
     public function __contruct(
-        $id,
-        $quantidade,
-        $valorDeAquisicao,
+        $id = null,
+        $quantidade = null,
+        $valorDeAquisicao = null,
         $dataHoraDaCricao = null,
         $deletadoEm = null
     )
@@ -71,14 +71,18 @@ class Estoque extends Model
         ]);
     }
 
-    public function reduzirEstoque(int $valor)
+    public function reduzirEstoque(int $valor): bool
     {
-        $ERRO = 'Estoque::reduzirEstoque';
+        $data = $this->find($this->id);
 
-        $this->update($this->id, [
-            'quantidade' => ($this->quantidade - $valor) ?? $ERRO,
-            'valor_de_aquisicao' => $this->valorDeAquisicao ?? $ERRO,
-        ]);
+        if ($data->quantidade >= $valor) {
+            $this->update($this->id, [
+                'quantidade' => ($data->quantidade - $valor) ?? 0,
+            ]);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function aumentarEstoque(int $valor)
@@ -86,14 +90,18 @@ class Estoque extends Model
         $ERRO = 'Estoque::aumentarEstoque';
 
         $this->update($this->id, [
-            'quantidade' => ($this->quantidade - $valor) ?? $ERRO,
+            'quantidade' => ($this->quantidade - $valor) ?? 0,
             'valor_de_aquisicao' => $this->valorDeAquisicao ?? $ERRO,
         ]);
     }
 
-    public function deletarEstoque()
+    public function buscarEstoque(int $produtoId)
     {
-        $this->delete($this->id);
-    }
+        $data = $this->where(['produto_id' => $produtoId])->find();
 
+        $this->id = $data->id;
+        $this->quantidade = $data->quantidade;
+        $this->valorDeAquisicao = $data->valor_de_aquisicao;
+        $this->dataHoraDaCriacao = $data->data_hora_da_criacao;
+    }
 }
