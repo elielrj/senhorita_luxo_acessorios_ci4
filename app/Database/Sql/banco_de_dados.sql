@@ -172,9 +172,10 @@ foreign key (email_id) references email(id)
 
 create table if not exists produto(
 id int primary key auto_increment not null,
-valor float not null,
-nome varchar(150) not null,
 codigo varchar(250) not null,
+nome varchar(150) not null,
+valor_unitario float not null,
+data_hora_da_criacao datetime not null default current_timestamp,
 deleted_at datetime
 );
 

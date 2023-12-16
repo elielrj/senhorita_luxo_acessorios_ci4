@@ -5879,8 +5879,9 @@ VALUES('1','Home','Rua Cel Cabral','458','Apt 704','Centro','88701050', true,nul
 INSERT INTO usuario(`id`,`cadastrado`,`ultimo_acesso`,`logins`,`email`,`senha`,`celular`,`ddd`,`nome`,`sobrenome`,`deleted_at`)
 VALUES('1',now(),now(),'1','elielrj@gmail.com',md5(2),'991577468', '48','Eliel','de Souza Faria',null);
 
-INSERT INTO produto(`id`,`nome`,`valor`,`codigo`,`deleted_at`)
-VALUES('1','Brinco',29.90,'000001',null);
+
+INSERT INTO produto(`id`,`codigo`,`nome`,`valor_unitario`,`data_hora_da_criacao`,`deleted_at`)
+VALUES('1','000001','Brinco',29.90,now(),null);
 
 INSERT INTO arquivo(`id`,`path`,`data_hora_da_criacao`,`deleted_at`,`produto_id`)
 VALUES(default,'public/assets/img/imagem.png',now(),null,1);
