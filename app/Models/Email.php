@@ -20,8 +20,8 @@ class Email extends Model
     protected $allowedFields = ['valor'];
 
     public function __construct(
-        $id,
-        $valor,
+        $id = null,
+        $valor = null,
         $dataHoraDaCriacao = null,
         $deletadoEm = null
     )
@@ -40,5 +40,39 @@ class Email extends Model
     public function __set($key, $value)
     {
         $this->$key = $value;
+    }
+
+    public function buscarEmail(int $emailId)
+    {
+        $data = $this->where(['id' => $emailId])->find();
+
+        $this->id = $data->id;
+        $this->valor = $data->valor;
+        $this->dataHoraDaCriacao = $data->data_hora_da_criacao;
+    }
+
+    public function criarEmail()
+    {
+        $ERRO = 'Email::criarEmail()';
+
+        $this->insert([
+            'id' => null,
+            'valor' => $this->valor ?? $ERRO,
+        ]);
+    }
+
+    public function validarEmail($email)
+    {
+        $data = $this->where(['email' => $email])->find();
+        if (!empty($data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deletarEmail()
+    {
+        $this->delete($this->id);
     }
 }
