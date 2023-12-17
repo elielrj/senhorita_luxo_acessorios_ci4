@@ -32,16 +32,18 @@ class Usuario extends Model
         'sobrenome',
         'nascimento',
         'cpf',
+        'email_id',
     ];
+
     public function __construct(
-        $id,
-        $nome,
-        $sobrenome,
-        $nascimento,
-        $cpf,
-        $email,
+        $id = null,
+        $nome = null,
+        $sobrenome = null,
+        $nascimento = null,
+        $cpf = null,
+        $email = null,
         $pedidos = [],
-        $enderecos=[],
+        $enderecos = [],
         $telefones = [],
         $dataHoraDaCriacao = null,
         $deletadoEm = null
@@ -52,7 +54,7 @@ class Usuario extends Model
         $this->sobrenome = $sobrenome;
         $this->nascimento = $nascimento;
         $this->cpf = $cpf;
-        $this->email = $email;
+        $this->email = $email ?? new Email();
         $this->pedidos = $pedidos;
         $this->enderecos = $enderecos;
         $this->telefones = $telefones;
@@ -68,5 +70,27 @@ class Usuario extends Model
     public function __set($key, $value)
     {
         $this->$key = $value;
+    }
+
+    public function atualizarUsuario()
+    {
+        $ERRO = 'Usuario::atualizarUsuario()';
+
+        $this->update($this->id, [
+            'nome' => $this->nome ?? $ERRO,
+            'sobrenome' => $this->sobrenome ?? $ERRO,
+            'nascimento' => $this->nascimento,
+            'cpf' => $this->cpf ?? 0,
+        ]);
+
+        foreach ($this->telefones as $telefone) {
+            if ($telefone == Telefone::class) {
+                $telefone->atualizarTelefone();
+            }
+        }
+    }
+    public function deletarUsuario()
+    {
+        $this->delete($this->id);
     }
 }
