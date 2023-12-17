@@ -120,18 +120,30 @@ foreign key (usuario_id) references usuario(id)
 # FIM ENDEREÇO 
 ################################################################
 
+create table if not exists email(
+id int primary key auto_increment not null,
+valor varchar(250) not null,
+data_hora_da_criacao datetime not null default current_timestamp,
+deleted_at datetime
+);
+
+create table if not exists login(
+id int primary key auto_increment not null,
+logins int not null,
+senha varchar(250) not null,
+ultimo_acesso datetime not null default current_timestamp,
+email_id int not null,
+data_hora_da_criacao datetime not null default current_timestamp,
+deleted_at datetime
+);
 
 create table if not exists usuario(
 id int primary key auto_increment not null,
-cadastrado datetime not null default current_timestamp,
-ultimo_acesso datetime not null default current_timestamp,
-logins int not null,
-email varchar(250) not null,
-senha varchar(250) not null,
-celular varchar(11) not null,
-ddd varchar(2) not null,
 nome varchar(250) not null,
 sobrenome varchar(250) not null,
+cpf varchar(14) not null,
+email_id int not null,
+data_hora_da_criacao datetime not null default current_timestamp,
 deleted_at datetime
 );
 
