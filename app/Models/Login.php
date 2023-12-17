@@ -23,11 +23,11 @@ class Login extends Model
     protected $allowedFields = ['logins', 'senha', 'ultimo_acesso'];
 
     public function __construct(
-        $id,
-        $logins,
-        $senha,
-        $ultimoAcesso,
-        $email,
+        $id = null,
+        $logins = null,
+        $senha = null,
+        $ultimoAcesso = null,
+        $email = null,
         $dataHoraDaCriacao = null,
         $deletadoEm = null
     )
@@ -36,7 +36,7 @@ class Login extends Model
         $this->logins = $logins;
         $this->senha = $senha;
         $this->ultimoAcesso = $ultimoAcesso;
-        $this->email = $email;
+        $this->email = $email ?? new Email();
         $this->dataHoraDaCriacao = $dataHoraDaCriacao;
         $this->deletadoEm = $deletadoEm;
     }
@@ -49,5 +49,41 @@ class Login extends Model
     public function __set($key, $value)
     {
         $this->$key = $value;
+    }
+
+    public function criarLogin()
+    {
+        $ERRO = 'Login::criarLogin()';
+
+        $this->insert([
+            'id' => null,
+            'logins' => $this->logins ?? $ERRO,
+            'senha' => $this->senha ?? $ERRO,
+            'email_id' => $this->email->id ?? 0,
+            'ultimo_acesso' => $this->ultimoAcesso ?? $ERRO,
+        ]);
+    }
+
+    public function validarLogin($email, $senha)
+    {
+        $resultadoEmail = $this->email->validarEmail($email);
+
+        if ($resultadoEmail) {
+
+            $data = $this->where(['senha' => $senha])->find();
+
+            if (!empty($data)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function deletarLogin()
+    {
+        $this->delete($this->id);
     }
 }
