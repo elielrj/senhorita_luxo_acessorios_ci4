@@ -143,11 +143,10 @@ class Contato extends Model
                 $contato->id ?? $ERRO,
                 $contato->nome ?? $ERRO,
                 $contato->sobrenome ?? $ERRO,
-                $contato->email ?? $ERRO,
+                $contato->email->bucarEmail($contato->email_id) ?? $ERRO,
                 $contato->mensagem ?? $ERRO,
                 $contato->foi_respondido ?? $ERRO,
                 $contato->data_hora_da_cricao ?? $ERRO,
-                $contato->deleted_at ?? null
             );
         }
         return $listaDeContatos;
