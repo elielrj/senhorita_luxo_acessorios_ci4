@@ -55,10 +55,12 @@ class Email extends Model
     {
         $ERRO = 'Email::criarEmail()';
 
-        $this->insert([
+        $data = $this->insert([
             'id' => null,
             'valor' => $this->valor ?? $ERRO,
         ]);
+
+        $this->id = $data->resultID;
     }
 
     public function validarEmail($email)
