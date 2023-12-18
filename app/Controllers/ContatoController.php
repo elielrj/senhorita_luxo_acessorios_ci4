@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Contato;
+use App\Models\Email;
 
 class ContatoController extends BaseController
 {
@@ -10,11 +11,13 @@ class ContatoController extends BaseController
     {
         $ERRO = 'Contato::enviarMensagem()';
 
+        $email = new Email(null, $_POST['email'] );
+
         $contato = new Contato(
             null,
             $_POST['fname'] ?? $ERRO,
             $_POST['lname'] ?? $ERRO,
-            $_POST['email'] ?? $ERRO,
+            $email,
             $_POST['message'] ?? $ERRO
         );
 

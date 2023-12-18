@@ -9,7 +9,7 @@ class Contato extends Model
     private $id;
     private $nome;
     private $sobrenome;
-    private $email;
+    private Email $email;
     private $mensagem;
     private $foiRespondido;
     private $dataHoraDaCriacao;
@@ -20,14 +20,14 @@ class Contato extends Model
      */
     protected $table = 'contato';
     protected $returnType = 'object';
-    protected $allowedFields = ['nome', 'sobrenome', 'email', 'mensagem', 'foiRespondido'];
+    protected $allowedFields = ['nome', 'sobrenome', 'emailId', 'mensagem', 'foiRespondido'];
 
     public function __construct(
-        $id=null,
-        $nome=null,
-        $sobrenome=null,
-        $email=null,
-        $mensagem=null,
+        $id = null,
+        $nome = null,
+        $sobrenome = null,
+        $email = null,
+        $mensagem = null,
         $foiRespondido = false,
         $dataHoraDaCriacao = null,
         $deletadoEm = null
@@ -36,7 +36,7 @@ class Contato extends Model
         $this->id = $id;
         $this->nome = $nome;
         $this->sobrenome = $sobrenome;
-        $this->email = $email;
+        $this->email = $email ?? new Email();
         $this->mensagem = $mensagem;
         $this->foiRespondido = $foiRespondido;
         $this->dataHoraDaCriacao = $dataHoraDaCriacao;
@@ -57,12 +57,15 @@ class Contato extends Model
     {
         $ERRO = 'Contato::criarContato()';
 
+        $this->email->criarEmail();
+
         $this->insert([
-            'id'=> null,
+            'id' => null,
             'nome' => $this->nome ?? $ERRO,
             'sobrenome' => $this->sobrenome ?? $ERRO,
-            'email' => $this->email ?? $ERRO,
+            'emailId' => $this->email->id,
             'mensagem' => $this->mensagem ?? $ERRO,
+            'foiRespodido' => $this->foiRespondido,
         ]);
     }
 
