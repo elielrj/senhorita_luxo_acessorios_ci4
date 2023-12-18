@@ -1,275 +1,254 @@
+drop database if exists senhoritaLuxoAcessoriosWeb;
 
-drop database if exists senhorita_luxo_acessorios_web;
+create database if not exists senhoritaLuxoAcessoriosWeb;
 
-create database if not exists senhorita_luxo_acessorios_web;
+use senhoritaLuxoAcessoriosWeb;
 
-use senhorita_luxo_acessorios_web;
-
-################################################################
-# Contato
-################################################################
-create table contato
-(
-id int primary key auto_increment not null,
-nome varchar(100) not null,
-sobrenome varchar(100) not null,
-email varchar(100) not null,
-mensagem varchar(250) not null,
-foi_respondido boolean not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-deleted_at datetime
-);
-
-################################################################
-# Newsletter
-################################################################
-create table newsletter
-(
-id int primary key auto_increment not null,
-nome varchar(100) not null,
-email varchar(100) not null,
-deseja_receber boolean not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-deleted_at datetime
-);
-
-################################################################
-# Cupom
-################################################################
-create table cupom
-(
-id int primary key auto_increment not null,
-codigo varchar(100) not null,
-usar_mais_de_uma_vez boolean not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-data_hora_da_validade datetime not null,
-deleted_at datetime
-);
-
-################################################################
-# ValePresente
-################################################################
-create table vale_presente
-(
-id int primary key auto_increment not null,
-codigo varchar(100) not null,
-foi_usado boolean not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-data_hora_da_validade datetime not null,
-deleted_at datetime
-);
-
-
-################################################################
-# INICÍO ENDEREÇO 
-################################################################
-
-create table pais
-(
-id int primary key auto_increment not null,
-nome varchar(100) not null,
-name varchar(100) not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-deleted_at datetime
-);
-
-create table if not exists regiao(
-id int primary key auto_increment not null,
-nome varchar(250) not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-deleted_at datetime
-);
-
-create table if not exists estado(
-id int primary key auto_increment not null,
-nome varchar(250) not null,
-sigla varchar(2) not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-pais_id int not null,
-regiao_id int not null,
-deleted_at datetime,
-foreign key (regiao_id) references regiao(id),
-foreign key (pais_id) references pais(id)
-);
-
-create table if not exists cidade(
-id int primary key auto_increment not null,
-nome varchar(250) not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-estado_id int not null,
-deleted_at datetime,
-foreign key (estado_id) references estado(id)
-);
-
-create table if not exists endereco(
-id int primary key auto_increment not null,
-nome varchar(250),
-logradouro varchar(250) not null,
-numero varchar(10) not null,
-complemento varchar(250),
-bairro varchar(250) not null,
-cep varchar(250) not null,
-favorito boolean not null,
-deleted_at datetime,
-cidade_id int not null,
-usuario_id int not null,
-foreign key (cidade_id) references cidade(id),
-foreign key (usuario_id) references usuario(id)
-);
-################################################################
-# FIM ENDEREÇO 
-################################################################
-
-create table if not exists email(
-id int primary key auto_increment not null,
-valor varchar(250) not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-deleted_at datetime
-);
-
-create table if not exists login(
-id int primary key auto_increment not null,
-logins int not null,
-senha varchar(250) not null,
-ultimo_acesso datetime not null default current_timestamp,
-email_id int not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-deleted_at datetime
-);
-
-create table if not exists usuario(
-id int primary key auto_increment not null,
-nome varchar(250) not null,
-sobrenome varchar(250) not null,
-cpf varchar(14) not null,
-email_id int not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-deleted_at datetime
-);
-
-create table if not exists telefone(
-id int primary key auto_increment not null,
-ddd varchar(2) not null,
-numero varchar(11) not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-usuario_id int not null,
-deleted_at datetime,
-foreign key (usuario_id) references usuario(id)
-);
-
-create table if not exists email(
-id int primary key auto_increment not null,
-valor varchar(250) not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-usuario_id int not null,
-deleted_at datetime,
-foreign key (usuario_id) references usuario(id)
-);
-
-
-create table if not exists login(
-id int primary key auto_increment not null,
-logins int not null,
-senha varchar(250) not null,
-ultimo_acesso datetime not null default current_timestamp,
-data_hora_da_criacao datetime not null default current_timestamp,
-email_id int not null,
-deleted_at datetime,
-foreign key (email_id) references email(id)
-);
-
-################################################################
-# START PRODUTO
-################################################################
-
-create table if not exists produto(
-id int primary key auto_increment not null,
-codigo varchar(250) not null,
-nome varchar(150) not null,
-valor_unitario float not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-deleted_at datetime
-);
-
-create table if not exists arquivo(
-id int primary key auto_increment not null,
-path varchar(250) not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-deleted_at datetime
-produto_id int not null,
-foreign key (produto_id) references produto(id)
-);
-
-create table if not exists estoque(
-id int primary key auto_increment not null,
-quantidade int not null,
-valor_de_aquisicao float not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-deleted_at datetime,
-produto_id int not null,
-foreign key (produto_id) references produto(id)
-);
-
-################################################################
-# END PRODUTO
-################################################################
-
-################################################################
-# START PEDIDO
-################################################################
-
-create table if not exists pedido(
-id int primary key auto_increment not null,
-numero varchar(250) not null,
-valor_total float not null,
-desconto_total float not null,
-observacao varchar(250) not null,
-pago boolean not null,
-data_hora_da_cricao datetime not null default current_timestamp,
-deleted_at datetime,
-usuario_id int not null,
-cupom_id int not null,
-foreign key (usuario_id) references usuario(id),
-foreign key (cupom_id) references cupom(id)
-);
-
-create table if not exists item_do_pedido(
-id int primary key auto_increment not null,
-codigo_do_produto varchar(250) not null,
-nome_do_produto varchar(250) not null,
-valor_unitario_do_produto float not null,
-ordem_do_item int not null,
-quantidade int not null,
-desconto_em_percentual float not null,
-desconto_em_valor float not null,
-data_hora_da_criacao datetime not null default current_timestamp,
-deleted_at datetime,
-produto_id int not null,
-foreign key (produto_id) references produto(id)
+#1
+CREATE TABLE IF NOT EXISTS Produto (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    codigo VARCHAR(250) NOT NULL,
+    nome VARCHAR(150) NOT NULL,
+    valorUnitario FLOAT NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deletadoEm DATETIME
     );
+
+#2
+CREATE TABLE IF NOT EXISTS Arquivo (
+   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+   path VARCHAR(250) NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deletadoEm DATETIME,
+    produtoId INT NOT NULL,
+    FOREIGN KEY (produtoId)
+    REFERENCES Produto (id)
+    );
+
+#3
+CREATE TABLE IF NOT EXISTS Estoque (
+   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+   quantidade INT NOT NULL,
+   valorDeAqisicao FLOAT NOT NULL,
+   dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   deletadoEm DATETIME,
+   produtoId INT NOT NULL,
+   FOREIGN KEY (produtoId)
+    REFERENCES Produto (id)
+    );
+
+#4
+CREATE TABLE IF NOT EXISTS Cupom (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    codigo VARCHAR(100) NOT NULL,
+    podeUsarMaisDeUmaVez BOOLEAN NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    dataHoraDaValidade DATETIME NOT NULL,
+    deletadoEm DATETIME
+    );
+
+#5
+CREATE TABLE IF NOT EXISTS ValePresente (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    codigo VARCHAR(100) NOT NULL,
+    foiUsado BOOLEAN NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    dataHoraDaValidade DATETIME NOT NULL,
+    deletadoEm DATETIME
+    );
+
+#6
+CREATE TABLE IF NOT EXISTS Email (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    valor VARCHAR(250) NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deletadoEm DATETIME
+    );
+
+#7
+CREATE TABLE IF NOT EXISTS Login (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    logins INT NOT NULL,
+    senha VARCHAR(250) NOT NULL,
+    ultimoAcesso DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    emailId INT NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deletadoEm DATETIME,
+    FOREIGN KEY (emailId)
+    REFERENCES Email (id)
+    );
+
+#8
+CREATE TABLE IF NOT EXISTS Usuario (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(250) NOT NULL,
+    sobrenome VARCHAR(250) NOT NULL,
+    nascimento DATETIME NOT NULL,
+    cpf VARCHAR(14) NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deletadoEm DATETIME,
+    emailId INT NOT NULL,
+    FOREIGN KEY (emailId)
+    REFERENCES Email (id)
+    );
+
+#9
+CREATE TABLE IF NOT EXISTS Telefone (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    ddd VARCHAR(2) NOT NULL,
+    numero VARCHAR(11) NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deletadoEm DATETIME,
+    usuarioId INT NOT NULL,
+    FOREIGN KEY (usuarioId)
+    REFERENCES Usuario (id)
+    );
+
+#10
+CREATE TABLE IF NOT EXISTS Pedido (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    numero VARCHAR(250) NOT NULL,
+    valorTotal FLOAT NOT NULL,
+    descontoTotal FLOAT NOT NULL,
+    observacao VARCHAR(250) NOT NULL,
+    pago BOOLEAN NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deletadoEm DATETIME,
+    usuarioId INT NOT NULL,
+    cupomId INT NOT NULL,
+    FOREIGN KEY (usuarioId)
+    REFERENCES Usuario (id),
+    FOREIGN KEY (cupomId)
+    REFERENCES Cupom (id)
+    );
+
+#11
+CREATE TABLE IF NOT EXISTS ItemDoPedido (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    codigoDoProduto VARCHAR(250) NOT NULL,
+    nomeDoProduto VARCHAR(250) NOT NULL,
+    valorUnitarioDoProduto FLOAT NOT NULL,
+    ordemDoItem INT NOT NULL,
+    quantidade INT NOT NULL,
+    descontoEmPercentual FLOAT NOT NULL,
+    descontoEmValor FLOAT NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deletadoEm DATETIME,
+    produtoId INT NOT NULL,
+    FOREIGN KEY (produtoId)
+    REFERENCES Produto (id)
+    );
+
+#12
+CREATE TABLE IF NOT EXISTS Pais (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deletadoEm DATETIME
+    );
+
+#13
+CREATE TABLE IF NOT EXISTS Regiao (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(250) NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deletadoEm DATETIME
+    );
+
+#14
+CREATE TABLE IF NOT EXISTS Estado (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(250) NOT NULL,
+    sigla VARCHAR(2) NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    paisId INT NOT NULL,
+    regiaoId INT NOT NULL,
+    deletadoEm DATETIME,
+    FOREIGN KEY (regiaoId)
+    REFERENCES Regiao (id),
+    FOREIGN KEY (paisId)
+    REFERENCES Pais (id)
+    );
+
+#15
+CREATE TABLE IF NOT EXISTS Cidade (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(250) NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deletadoEm DATETIME,
+    estadoId INT NOT NULL,
+    FOREIGN KEY (estadoId)
+    REFERENCES Estado (id)
+    );
+
+#16
+CREATE TABLE IF NOT EXISTS Endereco (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(250),
+    logradouro VARCHAR(250) NOT NULL,
+    numero VARCHAR(10) NOT NULL,
+    complemento VARCHAR(250),
+    bairro VARCHAR(250) NOT NULL,
+    cep VARCHAR(250) NOT NULL,
+    favorito BOOLEAN NOT NULL,
+    deletadoEm DATETIME,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    cidadeId INT NOT NULL,
+    usuarioId INT NOT NULL,
+    FOREIGN KEY (cidadeId)
+    REFERENCES Cidade (id),
+    FOREIGN KEY (usuarioId)
+    REFERENCES Usuario (id)
+    );
+
+#17
+CREATE TABLE IF NOT EXISTS Newsletter (
+                                          id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+                                          nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    desejaReceber BOOLEAN NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deletadoEm DATETIME
+    );
+
+#18
+CREATE TABLE IF NOT EXISTS Contato (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    sobrenome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    mensagem VARCHAR(250) NOT NULL,
+    foiRespondido BOOLEAN NOT NULL,
+    dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deletadoEm DATETIME
+);
+
+
+
 /*
 create table if not exists categoria(
 id int primary key auto_increment not null,
 descricao varchar(250) not null,
-deleted_at datetime
+deletadoEm datetime
 );
 
 create table if not exists produto_categoria(
-produto_id int not null,
+produtoId int not null,
 categoria_id int not null,
-deleted_at datetime,
-foreign key (produto_id) references produto(id),
+deletadoEm datetime,
+foreign key (produtoId) references produto(id),
 foreign key (categoria_id) references categoria(id)
 );
 
 create table if not exists visualizacao(
 id int primary key auto_increment not null,
 data_hora datetime not null default current_timestamp, 
-produto_id int not null,
-usuario_id int not null,
-deleted_at datetime,
-foreign key (produto_id) references produto(id),
-foreign key (usuario_id) references usuario(id)
+produtoId int not null,
+usuarioId int not null,
+deletadoEm datetime,
+foreign key (produtoId) references produto(id),
+foreign key (usuarioId) references Usuario(id)
 );
 
 
@@ -278,22 +257,22 @@ create table if not exists avaliacao(
 id int primary key auto_increment not null,
 nota int not null,
 data_hora datetime not null default current_timestamp,
-usuario_id int not null,
-produto_id int not null,
-deleted_at datetime,
-foreign key (usuario_id) references usuario(id),
-foreign key (produto_id) references produto(id)
+usuarioId int not null,
+produtoId int not null,
+deletadoEm datetime,
+foreign key (usuarioId) references Usuario(id),
+foreign key (produtoId) references produto(id)
 );
 
 create table if not exists curtida(
 id int primary key auto_increment not null,
-usuario_curtiu bool not null,
+Usuario_curtiu bool not null,
 data_hora datetime not null default current_timestamp,
-usuario_id int not null,
-produto_id int not null,
-deleted_at datetime,
-foreign key (usuario_id) references usuario(id),
-foreign key (produto_id) references produto(id)
+usuarioId int not null,
+produtoId int not null,
+deletadoEm datetime,
+foreign key (usuarioId) references Usuario(id),
+foreign key (produtoId) references produto(id)
 );
 
 
@@ -301,18 +280,18 @@ foreign key (produto_id) references produto(id)
 create table if not exists lista_de_desejos(
 id int primary key auto_increment not null,
 data_hora_modificacao datetime not null default current_timestamp,
-usuario_id int not null,
-produto_id int not null,
-deleted_at datetime,
-foreign key (usuario_id) references usuario(id),
-foreign key (produto_id) references produto(id)
+usuarioId int not null,
+produtoId int not null,
+deletadoEm datetime,
+foreign key (usuarioId) references Usuario(id),
+foreign key (produtoId) references produto(id)
 );
 
 create table if not exists lista_de_desejos_produto(
-produto_id int not null,
+produtoId int not null,
 lista_de_desejos_id int not null,
 foreign key (lista_de_desejos_id) references lista_de_desejos(id),
-foreign key (produto_id) references produto(id)
+foreign key (produtoId) references produto(id)
 );
 */
 
@@ -320,7 +299,7 @@ foreign key (produto_id) references produto(id)
 create table if not exists forma_de_pagamento(
 id int primary key auto_increment not null,
 nome varchar(150), ##todo unique no campo
-deleted_at datetime
+deletadoEm datetime
 );
 
 create table if not exists recebimento(
@@ -328,14 +307,14 @@ id int primary key auto_increment not null,
 data_hora datetime not null default current_timestamp,
 valor_recebido float not null,
 forma_de_pagamento_id int not null,
-usuario_id_cliente int not null,
-usuario_id_vendedor int not null,
-usuario_id_caixa int not null,
+usuarioId_cliente int not null,
+usuarioId_vendedor int not null,
+usuarioId_caixa int not null,
 pedido_id int not null,
-deleted_at datetime,
-foreign key (usuario_id_cliente) references usuario(id),
-foreign key (usuario_id_vendedor) references usuario(id),
-foreign key (usuario_id_caixa) references usuario(id),
+deletadoEm datetime,
+foreign key (usuarioId_cliente) references Usuario(id),
+foreign key (usuarioId_vendedor) references Usuario(id),
+foreign key (usuarioId_caixa) references Usuario(id),
 foreign key (pedido_id) references pedido(id),
 foreign key (forma_de_pagamento_id) references forma_de_pagamento(id)
 );
@@ -345,7 +324,7 @@ id int primary key auto_increment not null,
 nome varchar(150),
 agencia varchar(100),
 conta varchar(100),
-deleted_at datetime
+deletadoEm datetime
 );
 
 create table if not exists despesa(
@@ -357,7 +336,7 @@ multa float,
 juros float,
 desconto float,
 observacao varchar(250),
-deleted_at datetime
+deletadoEm datetime
 );
 
 create table if not exists pagamento(
@@ -365,10 +344,10 @@ id int primary key auto_increment not null,
 data_hora datetime not null default current_timestamp,
 valor_pago float not null,
 forma_de_pagamento_id int not null,
-usuario_id int not null,
+usuarioId int not null,
 despesa_id int not null,
-deleted_at datetime,
-foreign key (usuario_id) references usuario(id),
+deletadoEm datetime,
+foreign key (usuarioId) references Usuario(id),
 foreign key (despesa_id) references despesa(id),
 foreign key (forma_de_pagamento_id) references forma_de_pagamento(id)
 );
@@ -379,7 +358,7 @@ id int primary key auto_increment not null,
 nome_completo varchar(250),
 data_de_nascimento datetime not null default current_timestamp,
 cpf varchar(11),
-deleted_at datetime
+deletadoEm datetime
 );
 
 create table if not exists pesoa_juridica(
@@ -387,7 +366,7 @@ id int primary key auto_increment not null,
 nome_fantasia varchar(250),
 nome_da_empresa datetime not null default current_timestamp,
 cnpj varchar(14),
-deleted_at datetime
+deletadoEm datetime
 );
 
 create table if not exists funcao(
@@ -395,6 +374,6 @@ id int primary key auto_increment not null,
 descricao varchar(250),
 nivel_de_acesso enum('comprar','vender','estocar','administrar','root'),
 cpf varchar(11),
-deleted_at datetime
+deletadoEm datetime
 );
 */
