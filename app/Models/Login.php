@@ -20,7 +20,7 @@ class Login extends Model
    */
     protected $table = 'login';
     protected $returnType = 'object';
-    protected $allowedFields = ['logins', 'senha', 'ultimo_acesso'];
+    protected $allowedFields = ['logins', 'senha', 'ultimo_acesso','email_id'];
 
     public function __construct(
         $id = null,
@@ -51,9 +51,15 @@ class Login extends Model
         $this->$key = $value;
     }
 
-    public function criarLogin()
+    public function criarLogin($email,$senha)
     {
         $ERRO = 'Login::criarLogin()';
+
+        $this->senha = md5($senha);
+
+        $this->email->valor = $email;
+
+        $this->email->criarEmail();
 
         $this->insert([
             'id' => null,
@@ -70,7 +76,7 @@ class Login extends Model
 
         if ($resultadoEmail) {
 
-            $data = $this->where(['senha' => $senha])->find();
+            $data = $this->where(['senha' => md5($senha)])->find();
 
             if (!empty($data)) {
                 return true;
