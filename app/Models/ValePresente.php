@@ -25,7 +25,7 @@ class ValePresente extends Model
         'foi_usado',
         'data_hora_da_validade',
         'valor',
-        'usuario_id',
+        'usuarioId',
         'pago'];
 
     public function __construct(
@@ -63,7 +63,7 @@ class ValePresente extends Model
             'id' => null,
             'codigo' => md5(),
             'foiUsado' => false,
-            'usuario_id' => $usuarioId
+            'usuarioId' => $usuarioId
         ]);
     }
 

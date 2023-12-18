@@ -48,7 +48,7 @@ class Email extends Model
 
         $this->id = $data->id;
         $this->valor = $data->valor;
-        $this->dataHoraDaCriacao = $data->data_hora_da_criacao;
+        $this->dataHoraDaCriacao = $data->dataHoraDaCriacao;
     }
 
     public function criarEmail()

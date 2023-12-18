@@ -20,7 +20,7 @@ class Contato extends Model
      */
     protected $table = 'contato';
     protected $returnType = 'object';
-    protected $allowedFields = ['nome', 'sobrenome', 'email', 'mensagem', 'foi_respondido'];
+    protected $allowedFields = ['nome', 'sobrenome', 'email', 'mensagem', 'foiRespondido'];
 
     public function __construct(
         $id=null,
@@ -78,9 +78,9 @@ class Contato extends Model
             $contato->sobrenome ?? $ERRO,
             $contato->email ?? $ERRO,
             $contato->mensagem ?? $ERRO,
-            $contato->foi_respondido ?? $ERRO,
-            $contato->data_hora_da_cricao ?? $ERRO,
-            $contato->deleted_at ?? null
+            $contato->foiRespondido ?? $ERRO,
+            $contato->dataHoraDaCriacao ?? $ERRO,
+            $contato->deletadoEm ?? null
         );
     }
 
@@ -88,7 +88,7 @@ class Contato extends Model
     {
         $ERRO = 'Contato::buscarContatosNaoRespondido()';
 
-        $contatos = $this->where(['foi_respondido' => false])->findAll();
+        $contatos = $this->where(['foiRespondido' => false])->findAll();
 
         $listaDeContatos = [];
 
@@ -99,9 +99,9 @@ class Contato extends Model
                 $contato->sobrenome ?? $ERRO,
                 $contato->email ?? $ERRO,
                 $contato->mensagem ?? $ERRO,
-                $contato->foi_respondido ?? $ERRO,
-                $contato->data_hora_da_cricao ?? $ERRO,
-                $contato->deleted_at ?? null
+                $contato->foiRespondido ?? $ERRO,
+                $contato->dataHoraDaCriacao ?? $ERRO,
+                $contato->deletadoEm ?? null
             );
         }
         return $listaDeContatos;
@@ -111,7 +111,7 @@ class Contato extends Model
     {
         $ERRO = 'Contato::buscarContatosRespondido()';
 
-        $contatos = $this->where(['foi_respondido' => true])->findAll();
+        $contatos = $this->where(['foiRespondido' => true])->findAll();
 
         $listaDeContatos = [];
 
@@ -122,9 +122,9 @@ class Contato extends Model
                 $contato->sobrenome ?? $ERRO,
                 $contato->email ?? $ERRO,
                 $contato->mensagem ?? $ERRO,
-                $contato->foi_respondido ?? $ERRO,
-                $contato->data_hora_da_cricao ?? $ERRO,
-                $contato->deleted_at ?? null
+                $contato->foiRespondido ?? $ERRO,
+                $contato->dataHoraDaCriacao ?? $ERRO,
+                $contato->deletadoEm ?? null
             );
         }
         return $listaDeContatos;
@@ -143,10 +143,10 @@ class Contato extends Model
                 $contato->id ?? $ERRO,
                 $contato->nome ?? $ERRO,
                 $contato->sobrenome ?? $ERRO,
-                $contato->email->bucarEmail($contato->email_id) ?? $ERRO,
+                $contato->email->bucarEmail($contato->emailId) ?? $ERRO,
                 $contato->mensagem ?? $ERRO,
-                $contato->foi_respondido ?? $ERRO,
-                $contato->data_hora_da_cricao ?? $ERRO,
+                $contato->foiRespondido ?? $ERRO,
+                $contato->dataHoraDaCriacao ?? $ERRO,
             );
         }
         return $listaDeContatos;

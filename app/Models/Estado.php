@@ -17,7 +17,7 @@ class Estado extends Model
    */
     protected $table = 'estado';
     protected $returnType = 'object';
-    protected $allowedFields = ['nome', 'sigla', 'regiao_id'];
+    protected $allowedFields = ['nome', 'sigla', 'regiaoId'];
 
     public function __construct(
         $id = null,
@@ -54,7 +54,7 @@ class Estado extends Model
             'id' => null,
             'nome' => $this->nome ?? $ERRO,
             'sigla' => $this->sigla ?? $ERRO,
-            'regiao_id' => $this->regiao->id ?? 0,
+            'regiaoId' => $this->regiao->id ?? 0,
         ]);
     }
 
@@ -65,7 +65,7 @@ class Estado extends Model
         $this->id = $data->id;
         $this->nome = $data->nome;
         $this->sigla = $data->sigla;
-        $this->dataHoraDaCriacao = $data->data_hora_da_criacao;
-        $this->regiao->buscarRegiao($data->regiao_id);
+        $this->dataHoraDaCriacao = $data->dataHoraDaCriacao;
+        $this->regiao->buscarRegiao($data->regiaoId);
     }
 }

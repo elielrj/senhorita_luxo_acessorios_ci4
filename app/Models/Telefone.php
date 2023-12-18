@@ -66,7 +66,7 @@ class Telefone extends Model
             $telafone->id = $data->id;
             $telafone->ddd = $data->ddd;
             $telafone->numero = $data->numero;
-            $telafone->dataHoraDaCriacao = $data->data_hora_da_criacao;
+            $telafone->dataHoraDaCriacao = $data->dataHoraDaCriacao;
             $listaDeTelefones += $listaDeTelefones;
         }
         return $listaDeTelefones;

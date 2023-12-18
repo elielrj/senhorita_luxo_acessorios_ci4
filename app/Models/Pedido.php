@@ -33,8 +33,8 @@ class Pedido extends Model
         'desconto_total',
         'observacao',
         'pago',
-        'usuario_id',
-        'cupom_id',
+        '$usuarioId',
+        'cupomId',
     ];
 
     public function __construct(
@@ -87,8 +87,8 @@ class Pedido extends Model
             'desconto_total' => $this->descontoTotal ?? 0,
             'observacao' => $this->observacao ?? $ERRO,
             'pago' => $this->pago ?? false,
-            'cupom_id' => $this->cupom->id ?? 0,
-            'usuario_id' => $usuarioId ?? 0,
+            'cupomId' => $this->cupom->id ?? 0,
+            '$usuarioId' => $usuarioId ?? 0,
         ]);
 
         foreach ($this->itensDoPedido as $itemDoPedido) {

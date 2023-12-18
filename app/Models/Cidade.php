@@ -16,7 +16,7 @@ class Cidade extends Model
    */
     protected $table = 'cidade';
     protected $returnType = 'object';
-    protected $allowedFields = ['nome', 'estado_id'];
+    protected $allowedFields = ['nome', 'estadoId'];
 
     public function __construct(
         $id = null,
@@ -50,7 +50,7 @@ class Cidade extends Model
         $this->insert([
             'id' => null,
             'nome' => $this->nome ?? $ERRO,
-            'estado_id' => $this->estado->id ?? 0,
+            'estadoId' => $this->estado->id ?? 0,
         ]);
     }
 
@@ -60,7 +60,7 @@ class Cidade extends Model
 
         $this->id = $data->id;
         $this->nome = $data->nome;
-        $this->dataHoraDaCriacao = $data->data_hora_da_criacao;
-        $this->estado->buscarEstado($this->estado_id);
+        $this->dataHoraDaCriacao = $data->dataHoraDaCriacao;
+        $this->estado->buscarEstado($this->estadoId);
     }
 }

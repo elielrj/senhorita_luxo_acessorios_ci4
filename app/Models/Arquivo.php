@@ -20,7 +20,7 @@ class Arquivo extends Model
     protected $returnType = 'object';
     protected $allowedFields = [
         'path',
-        'produto_id'
+        'produtoId'
     ];
 
     public function __contruct(
@@ -53,7 +53,7 @@ class Arquivo extends Model
         $this->insert([
             'id' => null,
             'path' => $this->path ?? $ERRO,
-            'produto_id' => $produtoId ?? 0
+            'produtoId' => $produtoId ?? 0
         ]);
     }
 
@@ -63,7 +63,7 @@ class Arquivo extends Model
 
         $this->update($this->id, [
             'path' => $this->path ?? $ERRO,
-            'produto_id' => $produtoId ?? 0
+            'produtoId' => $produtoId ?? 0
         ]);
     }
 }

@@ -31,8 +31,8 @@ class Endereco extends Model
         'bairro',
         'cep',
         'favorito',
-        'cidade_id',
-        'usuario_id',
+        'cidadeId',
+        'usuarioId',
     ];
 
     public function __construct(
@@ -85,14 +85,14 @@ class Endereco extends Model
             'bairro' => $this->bairro ?? $ERRO,
             'cep' => $this->cep ?? $ERRO,
             'favorito' => $this->favorito ?? $ERRO,
-            'cidade_id' => $this->cidade->id ?? 0,
-            'usuario_id' => $usuarioId ?? 0,
+            'cidadeId' => $this->cidade->id ?? 0,
+            'usuarioId' => $usuarioId ?? 0,
         ]);
     }
 
     public function buscarEdereco(int $usuarioId)
     {
-        $data = $this->where(['usuario_id' => $usuarioId])->findAll();
+        $data = $this->where(['usuarioId' => $usuarioId])->findAll();
 
         foreach ($data as $value) {
 
@@ -106,8 +106,8 @@ class Endereco extends Model
             $endereco->bairro = $value->bairro;
             $endereco->cep = $value->cep;
             $endereco->favorito = $value->favorito;
-            $endereco->dataHoraDaCriacao = $value->data_hora_da_criacao;
-            $this->cidade->buscarCidade($value->cidade_id);
+            $endereco->dataHoraDaCriacao = $value->dataHoraDaCriacao;
+            $this->cidade->buscarCidade($value->cidadeId);
         }
     }
 }

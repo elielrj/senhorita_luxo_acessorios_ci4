@@ -26,7 +26,7 @@ class Produto extends Model
     protected $allowedFields = [
         'codigo',
         'nome',
-        'valor_unitario',
+        'valorUnitario',
         'estoque',
     ];
 
@@ -69,7 +69,7 @@ class Produto extends Model
             'id' => null,
             'codigo' => $this->codigo ?? $ERRO,
             'nome' => $this->nome ?? $ERRO,
-            'valor_unitario' => $this->valorUnitario ?? 0,
+            'valorUnitario' => $this->valorUnitario ?? 0,
         ]);
 
         $this->estoque->criarEstoque($produtoId);
@@ -88,7 +88,7 @@ class Produto extends Model
         $this->update($this->id, [
             'codigo' => $this->codigo ?? $ERRO,
             'nome' => $this->nome ?? $ERRO,
-            'valor_unitario' => $this->valorUnitario ?? 0,
+            'valorUnitario' => $this->valorUnitario ?? 0,
         ]);
 
         $this->estoque->atualizarEstoque();

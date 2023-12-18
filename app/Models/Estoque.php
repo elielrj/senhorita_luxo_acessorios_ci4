@@ -20,7 +20,7 @@ class Estoque extends Model
     protected $returnType = 'object';
     protected $allowedFields = [
         'quantidade',
-        'valor_de_aquisicao',
+        'valorDeAquisicao',
         'produto_id',
     ];
 
@@ -56,7 +56,7 @@ class Estoque extends Model
         $this->insert([
             'id' => null,
             'quantidade' => $this->quantidade ?? $ERRO,
-            'valor_de_aquisicao' => $this->valorDeAquisicao ?? $ERRO,
+            'valorDeAquisicao' => $this->valorDeAquisicao ?? $ERRO,
             'produto_id' => $produtoId ?? 0
         ]);
     }
@@ -67,7 +67,7 @@ class Estoque extends Model
 
         $this->update($this->id, [
             'quantidade' => $this->quantidade ?? $ERRO,
-            'valor_de_aquisicao' => $this->valorDeAquisicao ?? $ERRO,
+            'valorDeAquisicao' => $this->valorDeAquisicao ?? $ERRO,
         ]);
     }
 
@@ -91,7 +91,7 @@ class Estoque extends Model
 
         $this->update($this->id, [
             'quantidade' => ($this->quantidade - $valor) ?? 0,
-            'valor_de_aquisicao' => $this->valorDeAquisicao ?? $ERRO,
+            'valorDeAquisicao' => $this->valorDeAquisicao ?? $ERRO,
         ]);
     }
 
@@ -101,7 +101,7 @@ class Estoque extends Model
 
         $this->id = $data->id;
         $this->quantidade = $data->quantidade;
-        $this->valorDeAquisicao = $data->valor_de_aquisicao;
-        $this->dataHoraDaCriacao = $data->data_hora_da_criacao;
+        $this->valorDeAquisicao = $data->valorDeAquisicao;
+        $this->dataHoraDaCriacao = $data->dataHoraDaCriacao;
     }
 }

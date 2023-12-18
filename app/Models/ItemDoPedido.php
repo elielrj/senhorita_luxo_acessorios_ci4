@@ -25,15 +25,15 @@ class ItemDoPedido extends Model
     protected $table = 'item_do_pedido';
     protected $returnType = 'object';
     protected $allowedFields = [
-        'codigo_do_produto',
-        'nome_do_produto',
-        'valor_unitario_do_produto',
-        'ordem_do_item',
+        'codigoDoProduto',
+        'nomeDoProduto',
+        'valorUnitarioDoProduto',
+        'ordemDoItem',
         'quantidade',
-        'desconto_em_percentual',
-        'desconto_em_valor',
-        'pedido_id',
-        'produto_id',
+        'descontoEmPercentual',
+        'descontoEmValor',
+        'pedidoId',
+        'produtoId',
     ];
 
     public function __construct(
@@ -82,15 +82,15 @@ class ItemDoPedido extends Model
         if ($resultado) {
             $this->insert([
                 'id' => null,
-                'codigo_do_produto' => $this->codigoDoProduto ?? $ERRO,
-                'nome_do_produto' => $this->nomeDoProduto ?? $ERRO,
-                'valor_unitario_do_produto' => $this->valorUnitarioDoProduto ?? 0,
-                'ordem_do_item' => $this->ordemDoItem ?? 0,
+                'codigoDoProduto' => $this->codigoDoProduto ?? $ERRO,
+                'nomeDoProduto' => $this->nomeDoProduto ?? $ERRO,
+                'valorUnitarioDoProduto' => $this->valorUnitarioDoProduto ?? 0,
+                'ordemDoItem' => $this->ordemDoItem ?? 0,
                 'quantidade' => $this->quantidade ?? 0,
-                'desconto_em_percentual' => $this->descontoEmPercentual ?? 0,
-                'desconto_em_valor' => $this->descontoEmValor ?? 0,
-                'produto_id' => $this->produto->id ?? 0,
-                'pedido_id' => $pedidoId ?? 0,
+                'descontoEmPercentual' => $this->descontoEmPercentual ?? 0,
+                'descontoEmValor' => $this->descontoEmValor ?? 0,
+                'produtoId' => $this->produto->id ?? 0,
+                'pedidoId' => $pedidoId ?? 0,
             ]);
         }//todo: tratar o erro eventual, caso do estoque for menor a qtd desejada.
     }

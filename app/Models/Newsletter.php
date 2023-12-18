@@ -19,7 +19,7 @@ class Newsletter extends Model
     */
     protected $table = 'newsletter';
     protected $returnType = 'object';
-    protected $allowedFields = ['nome', 'email_id', 'deseja_receber'];
+    protected $allowedFields = ['nome', 'emailId', 'desejaReceber'];
 
     public function __construct(
         $id = null,
@@ -54,8 +54,8 @@ class Newsletter extends Model
 
         $this->insert([
             'nome' => $this->nome ?? $ERRO,
-            'email_id' => $this->email->id ?? $ERRO,
-            'deseja_receber' => $this->desejaReceber ?? false,
+            'emailId' => $this->email->id ?? $ERRO,
+            'desejaReceber' => $this->desejaReceber ?? false,
         ]);
     }
 
@@ -71,9 +71,9 @@ class Newsletter extends Model
             $newslatter = new Newsletter();
             $newslatter->id = $value->id ?? $ERRO;
             $newslatter->nome = $value->nome ?? $ERRO;
-            $newslatter->desejaReceber = $value->deseja_receber ?? $ERRO;
-            $newslatter->dataHoraDaCriacao = $value->data_hora_da_criacao ?? $ERRO;
-            $newslatter->email->buscarEmail($value->email_id);
+            $newslatter->desejaReceber = $value->desejaReceber ?? $ERRO;
+            $newslatter->dataHoraDaCriacao = $value->dataHoraDaCriacao ?? $ERRO;
+            $newslatter->email->buscarEmail($value->emailId);
             $listaDeNewlatter[] += $newslatter;
         }
         return $listaDeNewlatter;

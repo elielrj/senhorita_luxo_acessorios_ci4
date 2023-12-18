@@ -20,7 +20,7 @@ class Login extends Model
    */
     protected $table = 'login';
     protected $returnType = 'object';
-    protected $allowedFields = ['logins', 'senha', 'ultimo_acesso','email_id'];
+    protected $allowedFields = ['logins', 'senha', 'ultimoAcesso','emailId'];
 
     public function __construct(
         $id = null,
@@ -65,8 +65,8 @@ class Login extends Model
             'id' => null,
             'logins' => $this->logins ?? $ERRO,
             'senha' => $this->senha ?? $ERRO,
-            'email_id' => $this->email->id ?? 0,
-            'ultimo_acesso' => $this->ultimoAcesso ?? $ERRO,
+            'emailId' => $this->email->id ?? 0,
+            'ultimoAcesso' => $this->ultimoAcesso ?? $ERRO,
         ]);
     }
 
