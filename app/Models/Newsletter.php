@@ -9,7 +9,7 @@ class Newsletter extends Model
 {
     private $id;
     private $nome;
-    private $email;
+    private Email $email;
     private $desejaReceber;
     private $dataHoraDaCriacao;
     private $deletadoEm;
@@ -52,9 +52,11 @@ class Newsletter extends Model
     {
         $ERRO = 'Contato::criarNewsletter()';
 
+        $this->email->criarEmail();
+
         $this->insert([
             'nome' => $this->nome ?? $ERRO,
-            'emailId' => $this->email->id ?? $ERRO,
+            'emailId' => $this->email->id,
             'desejaReceber' => $this->desejaReceber ?? false,
         ]);
     }

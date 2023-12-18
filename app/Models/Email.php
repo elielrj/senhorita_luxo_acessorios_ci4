@@ -60,7 +60,7 @@ class Email extends Model
             'valor' => $this->valor ?? $ERRO,
         ]);
 
-        $this->id = $data->resultID;
+        $this->id = $data;
     }
 
     public function validarEmail($email)

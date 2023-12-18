@@ -5917,9 +5917,9 @@ INSERT INTO Endereco(`id`, `nome`, `logradouro`, `numero`, `complemento`, `bairr
 VALUES ('1', 'Home', 'Rua Cel Cabral', '458', 'Apt 704', 'Centro', '88701050', true, default,null, '4429',1);
 
 #17
-INSERT INTO Newsletter(`id`, `nome`, `email`, `desejaReceber`, `dataHoraDaCriacao`, `deletadoEm`)
-VALUES (1, 'Eliel', 'elielrj@gmail.com', true, default,null);
+INSERT INTO Newsletter(`id`, `nome`, `email`, `desejaReceber`, `dataHoraDaCriacao`, `deletadoEm`,`emailId`)
+VALUES (1, 'Eliel', 'elielrj@gmail.com', true, default,null,1);
 
 #18
-INSERT INTO Contato(`id`, `nome`, `sobrenome`, `email`, `mensagem`, `foiRespondido`, `dataHoraDaCriacao`, `deletadoEm`)
-VALUES (1, 'Eliel', 'de Souza Faria', 'elielrj@gmail.com', 'abc', false, default,null);
+INSERT INTO Contato(`id`, `nome`, `sobrenome`, `email`, `mensagem`, `foiRespondido`, `dataHoraDaCriacao`, `deletadoEm`,`emailId`)
+VALUES (1, 'Eliel', 'de Souza Faria', 'elielrj@gmail.com', 'abc', false, default,null,1);

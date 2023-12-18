@@ -204,12 +204,14 @@ CREATE TABLE IF NOT EXISTS Endereco (
 
 #17
 CREATE TABLE IF NOT EXISTS Newsletter (
-                                          id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-                                          nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    emailId int NOT NULL,
     desejaReceber BOOLEAN NOT NULL,
     dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    deletadoEm DATETIME
+    deletadoEm DATETIME,
+    FOREIGN KEY (emailId)
+    REFERENCES Email (id)
     );
 
 #18
@@ -217,11 +219,13 @@ CREATE TABLE IF NOT EXISTS Contato (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nome VARCHAR(100) NOT NULL,
     sobrenome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    emailId int NOT NULL,
     mensagem VARCHAR(250) NOT NULL,
     foiRespondido BOOLEAN NOT NULL,
     dataHoraDaCriacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    deletadoEm DATETIME
+    deletadoEm DATETIME,
+    FOREIGN KEY (emailId)
+    REFERENCES Email (id)
 );
 
 
